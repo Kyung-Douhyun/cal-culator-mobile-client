@@ -7,6 +7,7 @@ import Footer from '../../shared/Footer';
 import ColumnLists from './components/ColumnLists';
 import CartItem from './components/CartItem';
 import DeleteAndConfirm from './components/DeleteAndConfirm';
+import TotalCalories from './components/TotalCalories';
 
 export default function Cart() {
 	const dummyData = [
@@ -31,6 +32,7 @@ export default function Cart() {
 					))}
 				</View>
 			</View>
+			<TotalCalories />
 			<DeleteAndConfirm />
 			<Footer />
 		</View>

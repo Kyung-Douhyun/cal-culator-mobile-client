@@ -16,7 +16,7 @@ export default function DeleteAndConfirm() {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1.5,
+		flex: 1.8,
 		backgroundColor: 'lightgreen',
 		justifyContent: 'space-around',
 		flexDirection: 'row',
