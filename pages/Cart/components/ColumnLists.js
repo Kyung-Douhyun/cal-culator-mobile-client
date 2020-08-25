@@ -15,14 +15,18 @@ export default function ColumnLists() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 		paddingLeft: 10,
 		paddingRight: 10,
+		backgroundColor: '#eee',
 	},
 	column: {
 		flex: 1,
 		textAlign: 'center',
+		backgroundColor: '#ccc',
+		margin: 3,
 	},
 });
