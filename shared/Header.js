@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { globalStyle } from '../pages/styles/styles';
 
-export default function Header() {
+export default function Header({ pageName }) {
 	const signInOutHandler = () => {
 		console.log(123123);
 	};
@@ -10,7 +10,7 @@ export default function Header() {
 	return (
 		<View style={globalStyle.header}>
 			<Text style={styles.logo}>Logo</Text>
-			<Text style={styles.currentPage}>CurrentPage</Text>
+			<Text style={styles.currentPage}>{pageName}</Text>
 			<Text onPress={signInOutHandler} style={styles.signInOut}>
 				Sign in/out
 			</Text>

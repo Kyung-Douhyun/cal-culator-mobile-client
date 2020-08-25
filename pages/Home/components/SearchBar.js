@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		display: 'flex',
 		alignItems: 'center',
+		marginBottom: 10,
 	},
 	searchInput: {
 		backgroundColor: '#eee',

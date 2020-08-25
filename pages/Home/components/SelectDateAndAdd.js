@@ -4,7 +4,12 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function SelectDateAndAdd() {
 	return (
 		<View style={styles.container}>
-			<Text>SelectDate and Add</Text>
+			<View>
+				<Text>날짜입력</Text>
+			</View>
+			<View>
+				<Text>카트담기</Text>
+			</View>
 		</View>
 	);
 }

@@ -1,7 +1,5 @@
 import { StyleSheet, NativeModules } from 'react-native';
 
-export const homeStyle = StyleSheet.create({});
-
 export const globalStyle = StyleSheet.create({
 	page: {
 		flexDirection: 'column',
@@ -16,8 +14,8 @@ export const globalStyle = StyleSheet.create({
 	},
 	container: {
 		flex: 8,
-		paddingTop: 15,
-		paddingBottom: 15,
+		paddingTop: 10,
+		paddingBottom: 10,
 	},
 	footer: {
 		flex: 1,
