@@ -19,5 +19,9 @@ export const globalStyle = StyleSheet.create({
 	},
 	footer: {
 		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-around',
+		backgroundColor: 'red',
 	},
 });

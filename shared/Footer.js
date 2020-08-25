@@ -2,18 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { globalStyle } from '../pages/styles/styles';
 
-export default function Header() {
-	const signInOutHandler = () => {
-		console.log(123123);
-	};
-
+export default function Footer() {
 	return (
-		<View style={globalStyle.header}>
-			<Text style={styles.logo}>Logo</Text>
-			<Text style={styles.currentPage}>CurrentPage</Text>
-			<Text onPress={signInOutHandler} style={styles.signInOut}>
-				Sign in/out
-			</Text>
+		<View style={globalStyle.footer}>
+			<Text>Calculator</Text>
+			<Text>Cart</Text>
+			<Text>Summary</Text>
+			<Text>Recommendation</Text>
+			<Text>About</Text>
 		</View>
 	);
 }
