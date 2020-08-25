@@ -1,19 +1,21 @@
-'use strict';
-
-const pkg = require('./package.json');
-
 module.exports = {
-  extends: ['prettier'],
-  plugins: ['prettier'],
-  rules: {
-    'prettier/prettier': 'error',
-    'no-unused-vars': 'warn',
-    'no-console': 'off',
-  },
-  parserOptions: {
-    ecmaVersion: 2017,
-  },
-  env: {
-    es6: true,
-  },
+	env: {
+		es2020: true,
+		node: true,
+	},
+	extends: ['eslint:recommended', 'plugin:react/recommended'],
+	parserOptions: {
+		ecmaFeatures: {
+			jsx: true,
+		},
+		ecmaVersion: 12,
+		sourceType: 'module',
+	},
+	plugins: ['react'],
+	rules: {
+		indent: ['error', 'tab'],
+		'linebreak-style': ['error', 'unix'],
+		quotes: ['error', 'single'],
+		semi: ['error', 'always'],
+	},
 };
