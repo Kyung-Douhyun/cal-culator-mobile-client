@@ -10,7 +10,7 @@ export const globalStyle = StyleSheet.create({
 	header: {
 		flex: 1,
 		flexDirection: 'row',
-		alignItems: 'center',
+		alignItems: 'flex-end',
 		justifyContent: 'center',
 		backgroundColor: 'red',
 	},
