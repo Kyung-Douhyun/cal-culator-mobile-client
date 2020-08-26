@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { globalStyle } from '../pages/styles/styles';
 
-export default function Header({ pageName }) {
+export default function Header({ pageName, setLoginOpen }) {
 	const signInOutHandler = () => {
-		console.log(123123);
+		setLoginOpen(prevState => !prevState);
 	};
 
 	return (
