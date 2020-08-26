@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
 	},
 	selectedContainer: {
 		flexDirection: 'row',
+		height: 60,
 		borderRadius: 6,
 		elevation: 3,
 		backgroundColor: 'orange',
