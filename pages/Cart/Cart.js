@@ -28,9 +28,11 @@ export default function Cart() {
 			<View style={globalStyle.container}>
 				<ColumnLists />
 				<View style={styles.cartItems}>
-					{cartItem.map(item => (
-						<CartItem item={item} key={item.id} setCartItem={setCartItem} />
-					))}
+					<ScrollView style={styles.scrollView}>
+						{cartItem.map(item => (
+							<CartItem item={item} key={item.id} setCartItem={setCartItem} />
+						))}
+					</ScrollView>
 				</View>
 			</View>
 			<TotalCalories />
@@ -43,5 +45,8 @@ export default function Cart() {
 const styles = StyleSheet.create({
 	cartItems: {
 		flex: 11,
+	},
+	scrollView: {
+		backgroundColor: 'red',
 	},
 });
