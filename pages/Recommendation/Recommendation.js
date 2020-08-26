@@ -13,8 +13,8 @@ export default function Recommendation() {
 			<Header pageName='Recommendation' />
 			<View style={globalStyle.container}>
 				<RecommendContainer />
+				<EatOrNotBtn />
 			</View>
-			<EatOrNotBtn />
 			<Footer />
 		</View>
 	);

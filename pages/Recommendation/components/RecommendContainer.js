@@ -22,19 +22,19 @@ export default function RecommendContainer() {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 8,
+		flex: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: 'pink',
 	},
 	title: {
-		flex: 1,
+		flex: 0.8,
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: 'white',
 	},
 	recommend: {
-		flex: 9,
+		flex: 9.2,
 		width: '100%',
 		alignItems: 'center',
 		backgroundColor: '#eee',
