@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function CartItem({ item }) {
+export default function CartItem({ item, setCartItem }) {
 	const { date, foodName, servings, calories } = item;
 	const [selected, setSelected] = useState(false);
 
-	const pressHandler = () => setSelected(prev => !prev);
+	const pressHandler = () => {
+		setCartItem(prevState => {
+			const currentItem = prevState.find(cartItem => cartItem.id === item.id);
+			currentItem.selected = !currentItem.selected;
+			return [...prevState];
+		});
+		setSelected(prevState => !prevState);
+	};
 
 	return (
 		<TouchableOpacity

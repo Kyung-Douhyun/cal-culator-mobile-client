@@ -1,13 +1,27 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-export default function DeleteAndConfirm() {
+export default function DeleteAndConfirm({ setCartItem }) {
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity style={styles.deleteBtn}>
+			<TouchableOpacity
+				style={styles.deleteBtn}
+				onPress={() =>
+					setCartItem(prevState => {
+						return prevState.filter(cartItem => !cartItem.selected);
+					})
+				}
+			>
 				<Text>Delete</Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={styles.confirmBtn}>
+			<TouchableOpacity
+				style={styles.confirmBtn}
+				onPress={() =>
+					setCartItem(prevState => {
+						return prevState.filter(cartItem => !cartItem.selected);
+					})
+				}
+			>
 				<Text>Confirm</Text>
 			</TouchableOpacity>
 		</View>
