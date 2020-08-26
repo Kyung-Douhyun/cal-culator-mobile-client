@@ -34,9 +34,9 @@ export default function Cart() {
 						))}
 					</ScrollView>
 				</View>
+				<TotalCalories />
+				<DeleteAndConfirm setCartItem={setCartItem} />
 			</View>
-			<TotalCalories />
-			<DeleteAndConfirm setCartItem={setCartItem} />
 			<Footer />
 		</View>
 	);

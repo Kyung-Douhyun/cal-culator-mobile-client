@@ -6,6 +6,7 @@ import Header from '../../shared/Header';
 import Footer from '../../shared/Footer';
 import DWMButtons from './components/DWMButtons';
 import Chart from './components/Chart';
+import ReportType from './components/ReportType';
 
 export default function Summary() {
 	return (
@@ -14,6 +15,7 @@ export default function Summary() {
 			<View style={{ flex: 8 }}>
 				<DWMButtons />
 				<Chart />
+				<ReportType />
 			</View>
 			<Footer />
 		</View>
