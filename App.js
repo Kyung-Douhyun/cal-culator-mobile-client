@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Summary from './pages/Summary/Summary';
 import Recommendation from './pages/Recommendation/Recommendation';
+import About from './pages/About/About';
 
 export default function App() {
 	return (
@@ -13,6 +14,7 @@ export default function App() {
 			<Cart />
 			<Summary />
 			<Recommendation />
+			<About />
 		</Swiper>
 	);
 }

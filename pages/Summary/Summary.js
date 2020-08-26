@@ -12,7 +12,7 @@ export default function Summary() {
 	return (
 		<View style={globalStyle.page}>
 			<Header pageName='Summary' />
-			<View style={{ flex: 8 }}>
+			<View style={globalStyle.container}>
 				<DWMButtons />
 				<Chart />
 				<ReportType />
