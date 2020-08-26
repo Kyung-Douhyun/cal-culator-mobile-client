@@ -4,6 +4,7 @@ import Swiper from 'react-native-swiper';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Summary from './pages/Summary/Summary';
+import Recommendation from './pages/Recommendation/Recommendation';
 
 export default function App() {
 	return (
@@ -11,6 +12,7 @@ export default function App() {
 			<Home />
 			<Cart />
 			<Summary />
+			<Recommendation />
 		</Swiper>
 	);
 }
