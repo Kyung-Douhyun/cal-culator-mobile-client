@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Modal } from 'react-native';
+import { View, Modal, Text } from 'react-native';
 import { globalStyle } from '../styles/styles';
+import { useQuery, gql } from '@apollo/client';
 
 import Header from '../../shared/Header';
 import Footer from '../../shared/Footer';
@@ -10,8 +11,20 @@ import FoodImage from './components/FoodImage';
 import NutritionInfo from './components/NutritionInfo';
 import SelectDateAndAdd from './components/SelectDateAndAdd';
 
+const fetchUsers = gql`
+	{
+		users {
+			id
+			name
+		}
+	}
+`;
+
 export default function Home() {
 	const [loginOpen, setLoginOpen] = useState(false);
+	const { loading, error, data } = useQuery(fetchUsers);
+	if (loading) return <Text>Loading...</Text>;
+	if (error) return <Text>Error :(</Text>;
 	return (
 		<View style={globalStyle.page}>
 			<Modal
