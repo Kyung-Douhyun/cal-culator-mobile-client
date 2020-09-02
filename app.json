@@ -1,26 +1,31 @@
 {
-  "expo": {
-    "name": "cal-culator-mobile-client",
-    "slug": "cal-culator-mobile-client",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
-  }
+	"expo": {
+		"name": "cal-culator-mobile-client",
+		"slug": "cal-culator-mobile-client",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "com.ec532.calculatormobile",
+			"config": {
+				"googleSignIn": {
+					"reservedClientId": "com.googleusercontent.apps.129551562719-pnfn8u9ibnd9rot5fmi6je1lgddv6b6u"
+				}
+			},
+			"googleServicesFile": "./GoogleService-Info.plist"
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		}
+	}
 }
