@@ -1,5 +1,10 @@
 import React from 'react';
-import {ApolloClient, InMemoryCache, ApolloProvider, gql} from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from '@apollo/client';
 import Swiper from 'react-native-swiper';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
@@ -16,11 +21,11 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <Swiper loop={false} showsPagination={false}>
-        <Home />
-        <Cart />
         <Summary />
+        {/* <Home />
+        <Cart />
         <Recommendation />
-        <About />
+        <About /> */}
       </Swiper>
     </ApolloProvider>
   );
