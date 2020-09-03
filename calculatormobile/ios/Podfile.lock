@@ -364,9 +364,10 @@ PODS:
     - Firebase/Auth (~> 6.30.0)
     - React
     - RNFBApp
-  - RNSVG (12.1.0):
   - RNGoogleSignin (4.0.3):
     - GoogleSignIn (~> 5.0.0)
+    - React
+  - RNSVG (12.1.0):
     - React
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -422,8 +423,8 @@ DEPENDENCIES:
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
-  - RNSVG (from `../node_modules/react-native-svg`)
   - "RNGoogleSignin (from `../node_modules/@react-native-community/google-signin`)"
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -510,10 +511,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
     :path: "../node_modules/@react-native-firebase/auth"
-  RNSVG:
-    :path: "../node_modules/react-native-svg"
   RNGoogleSignin:
     :path: "../node_modules/@react-native-community/google-signin"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -569,9 +570,8 @@ SPEC CHECKSUMS:
   RNDateTimePicker: 843eca1c684369861c7dccccb6632f3c104c009c
   RNFBApp: e4321cad5dd23b43b3b4f0ca060300b9f85cb7a4
   RNFBAuth: 72ccfbe7546d85f9fadeda1c0c66435e0f8be748
-  RNFBAuth: e0b72882353a6280f0885ca8011804cef3c33cc8
-  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNGoogleSignin: ccf71ee4b6cfd324fd788a41e457e2043838c0d9
+  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
-import {View, Modal, Text} from 'react-native';
-import {globalStyle} from '../styles/styles';
-import {useQuery, gql} from '@apollo/client';
-
+import React, { useState } from 'react';
+import { View, Modal } from 'react-native';
+import { globalStyle } from '../styles/styles';
 import Header from '../../shared/Header';
 import Footer from '../../shared/Footer';
 import Login from '../Login/Login';
@@ -15,13 +13,7 @@ export default function Home() {
   const [loginOpen, setLoginOpen] = useState(false);
   return (
     <View style={globalStyle.page}>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={loginOpen}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+      <Modal animationType="slide" transparent={false} visible={loginOpen}>
         <Login setLoginOpen={setLoginOpen} />
       </Modal>
       <Header pageName="Cal-culator" setLoginOpen={setLoginOpen} />
