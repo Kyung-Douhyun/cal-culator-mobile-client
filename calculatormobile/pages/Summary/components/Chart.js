@@ -6,10 +6,11 @@ import {
   VictoryBar,
   VictoryTheme,
 } from 'victory-native';
-import { gql, useQuery } from '@apollo/client';
-import dailyRecommendation from './dailyRecommendation';
-import calculateIntake from './calculateIntake';
+import { gql, useQuery, useMutation } from '@apollo/client';
+import dailyRecommendation from '../helperFunctions/dailyRecommendation';
+import calculateIntake from '../helperFunctions/calculateIntake';
 
+import { foodusersDailyQuery } from '../queries';
 const DAILY = gql`
   {
     foodusersDate(
@@ -65,19 +66,30 @@ const defaultDailyData = [
   { x: 'vitamin_d', y: 0 },
 ];
 
-export default function Chart({ dwm }) {
+export default function Chart({ dwm, date }) {
   const recommendedDaily = dailyRecommendation(26, 'Male');
-  const { data, loading, error } = useQuery(DAILY, {
+  const [dailyData, setDailyData] = useState(defaultDailyData);
+  const { loading } = useQuery(foodusersDailyQuery, {
+    variables: {
+      user_id: '5f4a4b1a5668613a24e4e744',
+      date,
+      dwm,
+    },
     onCompleted: (data) =>
       setDailyData(calculateIntake(recommendedDaily, data.foodusersDate)),
   });
-  const [dailyData, setDailyData] = useState(defaultDailyData);
+
   if (loading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
   }
+  console.log('daily data', dailyData);
+  console.log('date', date);
   return (
     <View style={styles.container}>
-      {/* if loading..... */}
       <VictoryChart
         polar
         theme={VictoryTheme.material}

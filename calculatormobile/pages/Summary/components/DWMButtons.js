@@ -1,16 +1,29 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export default function DWMButton() {
+export default function DWMButton({ setDWM, setDatePickerOpen }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={{...styles.btn, backgroundColor: 'green'}}>
+      <TouchableOpacity
+        style={{ ...styles.btn, backgroundColor: 'green' }}
+        onPress={() => {
+          setDatePickerOpen(true);
+        }}>
         <Text>Daily</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={{...styles.btn, backgroundColor: 'blue'}}>
+      <TouchableOpacity
+        style={{ ...styles.btn, backgroundColor: 'blue' }}
+        onPress={() => {
+          setDatePickerOpen(true);
+        }}>
         <Text>Weekly</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={{...styles.btn, backgroundColor: 'yellow'}}>
+      <TouchableOpacity
+        style={{ ...styles.btn, backgroundColor: 'yellow' }}
+        onPress={() => {
+          setDatePickerOpen(true);
+        }}>
         <Text>Monthly</Text>
       </TouchableOpacity>
     </View>

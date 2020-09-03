@@ -12,16 +12,17 @@ import DatePicker from './components/DatePicker';
 export default function Summary() {
   const [showChart, setShowChart] = useState(true);
   const [datePickerOpen, setDatePickerOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
   const [dwm, setDWM] = useState('daily');
   return (
     <View style={globalStyle.page}>
       <Modal animationType="slide" transparent={false} visible={datePickerOpen}>
-        <DatePicker setDatePickerOpen={setDatePickerOpen} />
+        <DatePicker setDatePickerOpen={setDatePickerOpen} setDate={setDate} />
       </Modal>
       <Header pageName="Summary" />
       <View style={globalStyle.container}>
-        <DWMButtons setDWM={setDWM} />
-        {showChart ? <Chart dwm={dwm} /> : <Details dwm={dwm} />}
+        <DWMButtons setDWM={setDWM} setDatePickerOpen={setDatePickerOpen} />
+        {showChart ? <Chart dwm={dwm} date={date} /> : <Details dwm={dwm} />}
         <ReportType setShowChart={setShowChart} />
       </View>
       <Footer />
