@@ -358,7 +358,7 @@ PODS:
   - RNFBApp (8.4.1):
     - Firebase/CoreOnly (~> 6.30.0)
     - React
-  - RNFBAuth (9.1.2):
+  - RNFBAuth (9.2.0):
     - Firebase/Auth (~> 6.30.0)
     - React
     - RNFBApp
@@ -558,7 +558,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4d2e726957f4087449739b595f107c0d4b6c2d2d
   ReactCommon: a0a1edbebcac5e91338371b72ffc66aa822792ce
   RNFBApp: e4321cad5dd23b43b3b4f0ca060300b9f85cb7a4
-  RNFBAuth: e0b72882353a6280f0885ca8011804cef3c33cc8
+  RNFBAuth: 72ccfbe7546d85f9fadeda1c0c66435e0f8be748
   RNGoogleSignin: ccf71ee4b6cfd324fd788a41e457e2043838c0d9
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
