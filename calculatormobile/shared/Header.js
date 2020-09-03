@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {globalStyle} from '../pages/styles/styles';
+import { View, Text, StyleSheet } from 'react-native';
+import { globalStyle } from '../pages/styles/styles';
 
-export default function Header({pageName, setLoginOpen}) {
+export default function Header({ pageName, setLoginOpen }) {
   const signInOutHandler = () => {
     setLoginOpen((prevState) => !prevState);
   };

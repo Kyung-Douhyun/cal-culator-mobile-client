@@ -22,8 +22,8 @@ export default function App() {
     <ApolloProvider client={client}>
       <Swiper loop={false} showsPagination={false}>
         <Summary />
-        {/* <Home />
-        <Cart />
+        <Home />
+        {/*<Cart />
         <Recommendation />
         <About /> */}
       </Swiper>
