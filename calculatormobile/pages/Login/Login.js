@@ -15,6 +15,7 @@ export default function Login({setLoginOpen}) {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Login</Text>
       </View>
+
       <LoginTypes />
       <TouchableOpacity
         style={styles.closeBtnContainer}
