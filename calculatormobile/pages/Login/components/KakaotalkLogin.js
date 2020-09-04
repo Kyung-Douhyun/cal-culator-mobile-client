@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import KakaoLogins, { KAKAO_AUTH_TYPES } from '@react-native-seoul/kakao-login';
 import { useMutation } from '@apollo/client';
+import AddUserInfoModal from './AddUserInfoModal';
 import ADD_USER from '../../../graphQL/ADD_USER';
+import ADD_USER_INFO from '../../../graphQL/ADD_USER_INFO';
 
 if (!KakaoLogins) {
 	console.error('Module is Not Linked');
@@ -29,11 +31,30 @@ export default function KakaotalkLogin() {
 	const [profile, setProfile] = useState(PROFILE_EMPTY);
 	const { id, email, nickname } = profile;
 
-	const [addUser, { loading, error, data }] = useMutation(ADD_USER, {
+	const [modal, setModal] = useState(false);
+	const [user, setUser] = useState({
+		id: '',
+		name: '',
+		email: '',
+		gender: '',
+		age: null,
+	});
+	const [addUser] = useMutation(ADD_USER, {
 		onCompleted({ addUser: { id, name, email } }) {
 			console.log({ id, name, email });
+			setUser({ id, email, name });
 		},
 	});
+	const [addUserInfo] = useMutation(ADD_USER_INFO, {
+		onCompleted({ addUserInfo: { id, name, email, gender, age } }) {
+			console.log({ id, name, email, gender, age });
+		},
+	});
+
+	const completeKakaoLogin = async () => {
+		console.log(user);
+		await addUserInfoHandler(user);
+	};
 	const kakaoLogin = async () => {
 		logCallback('Login Start', setLoginLoading(true));
 
@@ -62,6 +83,7 @@ export default function KakaotalkLogin() {
 				console.log(result.email);
 				console.log(result.id);
 				await addUserHandler(result);
+				modalHandler();
 				logCallback(`Get Profile Finished:${JSON.stringify(result)}`, setProfileLoading(false));
 			})
 			.catch(err => {
@@ -74,11 +96,27 @@ export default function KakaotalkLogin() {
 			variables: { name: nickname, email, password: id },
 		});
 	};
+	const addUserInfoHandler = async ({ email, gender, age }) => {
+		console.log({ email, gender, age });
+		await addUserInfo({
+			variables: { email, gender, age },
+		});
+	};
 
+	const modalHandler = () => {
+		setModal(prevState => !prevState);
+	};
 	return (
 		<View style={styles.container}>
 			<Text>{token}</Text>
 			<Text onPress={kakaoLogin}>Kakaotalk Login</Text>
+			<AddUserInfoModal
+				modal={modal}
+				user={user}
+				setUser={setUser}
+				completeGoogleLogin={completeKakaoLogin}
+				modalHandler={modalHandler}
+			/>
 		</View>
 	);
 }
