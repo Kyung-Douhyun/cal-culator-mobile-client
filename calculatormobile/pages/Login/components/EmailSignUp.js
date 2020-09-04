@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   TextInput,
   SafeAreaView,
 } from 'react-native';
-import {useMutation} from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import auth from '@react-native-firebase/auth';
 import ADD_USER from '../../../graphQL/ADD_USER';
 
@@ -18,9 +18,9 @@ export default function EmailSignUp() {
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState();
-  const [addUser, {loading, error, data}] = useMutation(ADD_USER, {
-    onCompleted({addUser: {id, name, email}}) {
-      console.log({id, name, email});
+  const [addUser, { loading, error, data }] = useMutation(ADD_USER, {
+    onCompleted({ addUser: { id, name, email } }) {
+      console.log({ id, name, email });
     },
   });
 
@@ -32,7 +32,7 @@ export default function EmailSignUp() {
           console.log(created);
           console.log('USER ACCOUNT CREATED & SIGNED IN!');
           await addUser({
-            variables: {name, email, password, gender, age},
+            variables: { name, email, password, gender, age },
           })
             .then((aa) => {
               if (aa) {
@@ -69,27 +69,27 @@ export default function EmailSignUp() {
           <View>
             <Text>Name</Text>
             <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
               onChangeText={(text) => setName(text)}
             />
             <Text>Email</Text>
             <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
               onChangeText={(text) => setEmail(text)}
             />
             <Text>Password</Text>
             <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
               onChangeText={(text) => setPassWord(text)}
             />
             <Text>Gender</Text>
             <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
               onChangeText={(text) => setGender(text)}
             />
             <Text>Age</Text>
             <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
               onChangeText={(value) => setAge(Number(value))}
             />
             <Text type="submit" onPress={firebaseEmailSignUp}>

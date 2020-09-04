@@ -1,6 +1,0 @@
-module Pods_calculatormobileclient {
-  umbrella header "Pods-calculatormobileclient-umbrella.h"
-
-  export *
-  module * { export * }
-}
