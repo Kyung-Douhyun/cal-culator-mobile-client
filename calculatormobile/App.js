@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  gql,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 import Swiper from 'react-native-swiper';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
@@ -13,20 +8,20 @@ import Recommendation from './pages/Recommendation/Recommendation';
 import About from './pages/About/About';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4001/graphql',
-  cache: new InMemoryCache(),
+	uri: 'http://localhost:4001/graphql',
+	cache: new InMemoryCache(),
 });
 
 export default function App() {
-  return (
-    <ApolloProvider client={client}>
-      <Swiper loop={false} showsPagination={false}>
-        <Summary />
-        <Home />
-        {/*<Cart />
+	return (
+		<ApolloProvider client={client}>
+			<Swiper loop={false} showsPagination={false}>
+				<Summary />
+				<Home />
+				{/*<Cart />
         <Recommendation />
         <About /> */}
-      </Swiper>
-    </ApolloProvider>
-  );
+			</Swiper>
+		</ApolloProvider>
+	);
 }
