@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { globalStyle } from '../styles/styles';
 
-import Header from '../../shared/Header';
-import Footer from '../../shared/Footer';
 import DWMButtons from './components/DWMButtons';
 import DailyChart from './components/DailyChart';
 import RangeChart from './components/RangeChart';
@@ -11,6 +9,7 @@ import ReportType from './components/ReportType';
 import DatePickerModal from './components/DatePickerModal';
 
 export default function Summary() {
+
   const [showChart, setShowChart] = useState(true);
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [dwmRef, setDwmRef] = useState('daily');
@@ -28,7 +27,6 @@ export default function Summary() {
         dwmRef={dwmRef}
         setDwmRef={setDwmRef}
       />
-      <Header pageName="Summary" />
       <View style={globalStyle.container}>
         <DWMButtons setDWM={setDWM} setDatePickerOpen={setDatePickerOpen} />
         {dwm.type === 'daily' ? (
@@ -38,7 +36,6 @@ export default function Summary() {
         )}
         <ReportType setShowChart={setShowChart} />
       </View>
-      <Footer />
     </View>
   );
 }
