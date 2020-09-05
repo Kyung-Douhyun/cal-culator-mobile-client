@@ -5,6 +5,7 @@ import { globalStyle } from '../styles/styles';
 import DWMButtons from './components/DWMButtons';
 import DailyChart from './components/DailyChart';
 import RangeChart from './components/RangeChart';
+import MonthlyChart from './components/MonthlyChart';
 import ReportType from './components/ReportType';
 import DatePickerModal from './components/DatePickerModal';
 
@@ -28,9 +29,11 @@ export default function Summary() {
 			/>
 			<View style={globalStyle.container}>
 				<DWMButtons setDWM={setDWM} setDatePickerOpen={setDatePickerOpen} />
-				{dwm.type === 'daily' ? <DailyChart dwm={dwm} /> : <RangeChart dwm={dwm} />}
+				<MonthlyChart dwm={dwm} />
 				<ReportType setShowChart={setShowChart} />
 			</View>
 		</View>
 	);
 }
+
+// {dwm.type === 'daily' ? <DailyChart dwm={dwm} /> : <RangeChart dwm={dwm} />}
