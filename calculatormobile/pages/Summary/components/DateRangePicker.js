@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar } from 'react-native-calendars';
 import { View, Text, StyleSheet } from 'react-native';
-export default function DatePicker({ setDatePickerOpen, setDWM }) {
+import pickRangeDates from '../helperFunctions/pickRangeDates';
+
+export default function DateRangePicker({
+  setDatePickerOpen,
+  setDWM,
+  selectedDates,
+  setSelectedDates,
+}) {
   return (
     <View style={styles.datePicker}>
       <Calendar
         onDayPress={(day) => {
-          setDWM({ type: 'daily', date: day.dateString });
-          setDatePickerOpen(false);
+          setSelectedDates(pickRangeDates(selectedDates, day.dateString));
         }}
+        markingType="period"
+        markedDates={selectedDates}
         // onDayLongPress={(day) => {
         //   console.log('selected day', day);
         // }}
@@ -33,6 +41,8 @@ export default function DatePicker({ setDatePickerOpen, setDWM }) {
     </View>
   );
 }
+// setDate(day.dateString);
+// setDatePickerOpen(false);
 
 const styles = StyleSheet.create({
   datePicker: {
