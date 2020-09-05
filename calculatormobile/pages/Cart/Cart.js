@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { globalStyle } from '../styles/styles';
 
-import Header from '../../shared/Header';
-import Footer from '../../shared/Footer';
 import ColumnLists from './components/ColumnLists';
 import CartItem from './components/CartItem';
 import DeleteAndConfirm from './components/DeleteAndConfirm';
@@ -24,7 +22,6 @@ export default function Cart() {
 
 	return (
 		<View style={globalStyle.page}>
-			<Header pageName='Cart' />
 			<View style={globalStyle.container}>
 				<ColumnLists />
 				<View style={styles.cartItems}>
@@ -37,7 +34,6 @@ export default function Cart() {
 				<TotalCalories />
 				<DeleteAndConfirm setCartItem={setCartItem} />
 			</View>
-			<Footer />
 		</View>
 	);
 }

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { View, Modal } from 'react-native';
 import { globalStyle } from '../styles/styles';
-import Header from '../../shared/Header';
-import Footer from '../../shared/Footer';
 import Login from '../Login/Login';
 import SearchBar from './components/SearchBar';
 import FoodImage from './components/FoodImage';
@@ -16,14 +14,12 @@ export default function Home() {
 			<Modal animationType='slide' transparent={false} visible={loginOpen}>
 				<Login setLoginOpen={setLoginOpen} />
 			</Modal>
-			<Header pageName='Cal-culator' setLoginOpen={setLoginOpen} />
 			<View style={globalStyle.container}>
 				<SearchBar />
 				<FoodImage />
 				<NutritionInfo />
 				<SelectDateAndAdd />
 			</View>
-			<Footer />
 		</View>
 	);
 }

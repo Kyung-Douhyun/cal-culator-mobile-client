@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
-import Swiper from 'react-native-swiper';
-import Home from './pages/Home/Home';
-import Cart from './pages/Cart/Cart';
-import Summary from './pages/Summary/Summary';
-import Recommendation from './pages/Recommendation/Recommendation';
-import About from './pages/About/About';
+import React from 'react';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import 'react-native-gesture-handler';
+import AboutStack from './stacks/AboutStack';
+import HomeStack from './stacks/HomeStack';
+import SummaryStack from './stacks/SummaryStack';
+import CartStack from './stacks/CartStack';
+import RecommendationStack from './stacks/RecommendationStack';
+
+const Tab = createBottomTabNavigator();
 
 const client = new ApolloClient({
 	uri: 'http://localhost:4001/graphql',
@@ -15,13 +19,15 @@ const client = new ApolloClient({
 export default function App() {
 	return (
 		<ApolloProvider client={client}>
-			<Swiper loop={false} showsPagination={false}>
-				<Summary />
-				<Home />
-				{/*<Cart />
-        <Recommendation />
-        <About /> */}
-			</Swiper>
+			<NavigationContainer>
+				<Tab.Navigator initialRouteName='Home'>
+					<Tab.Screen name='Home' component={HomeStack} />
+					<Tab.Screen name='Summary' component={SummaryStack} />
+					<Tab.Screen name='Cart' component={CartStack} />
+					<Tab.Screen name='Recommendation' component={RecommendationStack} />
+					<Tab.Screen name='About' component={AboutStack} />
+				</Tab.Navigator>
+			</NavigationContainer>
 		</ApolloProvider>
 	);
 }
