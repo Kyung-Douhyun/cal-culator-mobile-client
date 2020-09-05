@@ -6,38 +6,12 @@ import {
   VictoryBar,
   VictoryTheme,
 } from 'victory-native';
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import dailyRecommendation from '../helperFunctions/dailyRecommendation';
 import calculateIntake from '../helperFunctions/calculateIntake';
 
 import { foodusersDailyQuery } from '../queries';
-const DAILY = gql`
-  {
-    foodusersDate(
-      user_id: "5f4a4b1a5668613a24e4e744"
-      date: "2020-09-03"
-      dwm: "daily"
-    ) {
-      date
-      amount
-      food_id
-      foods {
-        calories
-        fat
-        carbohydrate
-        sugar
-        protein
-        sodium
-        cholesterol
-        iron
-        calcium
-        vitamin_a
-        vitamin_d
-        zinc
-      }
-    }
-  }
-`;
+
 const lables = [
   'calories',
   'fat',
@@ -66,17 +40,18 @@ const defaultDailyData = [
   { x: 'vitamin_d', y: 0 },
 ];
 
-export default function Chart({ dwm, date }) {
+export default function DailyChart({ dwm }) {
   const recommendedDaily = dailyRecommendation(26, 'Male');
   const [dailyData, setDailyData] = useState(defaultDailyData);
   const { loading } = useQuery(foodusersDailyQuery, {
     variables: {
       user_id: '5f4a4b1a5668613a24e4e744',
-      date,
-      dwm,
+      date: dwm.date,
+      dwm: dwm.type,
     },
-    onCompleted: (data) =>
-      setDailyData(calculateIntake(recommendedDaily, data.foodusersDate)),
+    onCompleted: (data) => {
+      setDailyData(calculateIntake(recommendedDaily, data.foodusersDate));
+    },
   });
 
   if (loading) {
@@ -86,8 +61,6 @@ export default function Chart({ dwm, date }) {
       </View>
     );
   }
-  console.log('daily data', dailyData);
-  console.log('date', date);
   return (
     <View style={styles.container}>
       <VictoryChart

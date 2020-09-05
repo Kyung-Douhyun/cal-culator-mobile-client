@@ -5,7 +5,6 @@ export const foodusersDailyQuery = gql`
     foodusersDate(user_id: $user_id, date: $date, dwm: $dwm) {
       date
       amount
-      food_id
       foods {
         calories
         fat
@@ -19,6 +18,18 @@ export const foodusersDailyQuery = gql`
         vitamin_a
         vitamin_d
         zinc
+      }
+    }
+  }
+`;
+
+export const foodusersRangeQuery = gql`
+  query($user_id: ID!, $date: Date!, $dwm: String!) {
+    foodusersDate(user_id: $user_id, date: $date, dwm: $dwm) {
+      date
+      amount
+      foods {
+        calories
       }
     }
   }
