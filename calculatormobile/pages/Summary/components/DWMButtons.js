@@ -8,6 +8,9 @@ export default function DWMButton({ setDWM, setDatePickerOpen }) {
       <TouchableOpacity
         style={{ ...styles.btn, backgroundColor: 'green' }}
         onPress={() => {
+          setDWM((prevState) => {
+            return { ...prevState, type: 'daily' };
+          });
           setDatePickerOpen(true);
         }}>
         <Text>Daily</Text>
@@ -15,6 +18,9 @@ export default function DWMButton({ setDWM, setDatePickerOpen }) {
       <TouchableOpacity
         style={{ ...styles.btn, backgroundColor: 'blue' }}
         onPress={() => {
+          setDWM((prevState) => {
+            return { ...prevState, type: 'range' };
+          });
           setDatePickerOpen(true);
         }}>
         <Text>Weekly</Text>
@@ -22,6 +28,9 @@ export default function DWMButton({ setDWM, setDatePickerOpen }) {
       <TouchableOpacity
         style={{ ...styles.btn, backgroundColor: 'yellow' }}
         onPress={() => {
+          setDWM((prevState) => {
+            return { ...prevState, type: 'monthly' };
+          });
           setDatePickerOpen(true);
         }}>
         <Text>Monthly</Text>
