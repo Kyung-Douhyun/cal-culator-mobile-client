@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 export default function Support() {
 	return (
 		<View style={styles.container}>
-			<Text>후원 좋아용</Text>
-			<Text>국민: 123456-123-456</Text>
+			<Icon name='donate' type='font-awesome-5' />
+			<Text>Donate</Text>
 		</View>
 	);
 }
