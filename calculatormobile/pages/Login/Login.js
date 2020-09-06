@@ -3,23 +3,13 @@ import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-na
 
 import LoginTypes from './components/LoginTypes';
 
-export default function Login({ setLoginOpen }) {
+export default function Login() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.titleContainer}>
 				<Text style={styles.title}>Login</Text>
 			</View>
 			<LoginTypes />
-			<TouchableOpacity
-				style={styles.closeBtnContainer}
-				onPress={() => {
-					setLoginOpen(prevState => !prevState);
-				}}
-			>
-				<View style={styles.closeBtn}>
-					<Text>close</Text>
-				</View>
-			</TouchableOpacity>
 		</SafeAreaView>
 	);
 }

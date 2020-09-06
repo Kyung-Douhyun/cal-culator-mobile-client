@@ -20,7 +20,7 @@ export default function App() {
 	return (
 		<ApolloProvider client={client}>
 			<NavigationContainer>
-				<Tab.Navigator initialRouteName='Home'>
+				<Tab.Navigator initialRouteName='About'>
 					<Tab.Screen name='Home' component={HomeStack} />
 					<Tab.Screen name='Summary' component={SummaryStack} />
 					<Tab.Screen name='Cart' component={CartStack} />

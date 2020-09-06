@@ -5,8 +5,7 @@ import KakaotalkLogin from './KakaotalkLogin';
 import NaverLogin from './NaverLogin';
 import FacebookLogin from './FacebookLogin';
 import GoogleLogin from './GoogleLogin';
-import EmailSignUp from './EmailSignUp';
-import EmailLogin from './EmailLogin';
+import FirebaseEmail from './FirebaseEmail';
 
 export default function Login() {
 	const logout = () => {
@@ -16,12 +15,11 @@ export default function Login() {
 	};
 	return (
 		<View style={styles.container}>
-			<EmailLogin />
 			<KakaotalkLogin />
 			<NaverLogin />
 			<GoogleLogin />
 			<FacebookLogin />
-			<EmailSignUp />
+			<FirebaseEmail />
 			<View style={{ borderColor: 'black', borderWidth: 1 }}>
 				<Text onPress={logout}>로그아웃</Text>
 			</View>
