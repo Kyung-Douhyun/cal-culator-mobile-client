@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import { View, Text } from 'react-native';
 import { globalStyle } from '../styles/styles';
 
@@ -10,7 +12,10 @@ import DailyDetails from './components/DailyDetails';
 import ReportType from './components/ReportType';
 import DatePickerModal from './components/DatePickerModal';
 
-export default function Summary() {
+import * as actionTypes from '../../store/actions';
+
+function Summary({ userInfo }) {
+	console.log(userInfo);
 	const [showChart, setShowChart] = useState(true);
 	const [datePickerOpen, setDatePickerOpen] = useState(false);
 	const [dwmRef, setDwmRef] = useState('daily');
@@ -36,5 +41,21 @@ export default function Summary() {
 		</View>
 	);
 }
+
+const mapStateToProps = state => {
+	return {
+		userInfo: state.userInfo,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		login: () => {
+			dispatch({ type: actionTypes.LOGIN });
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Summary);
 
 // {dwm.type === 'daily' ? <DailyChart dwm={dwm} /> : dwm.type === 'range' ? <RangeChart dwm={dwm} /> : <MonthlyChart dwm={dwm} />}
