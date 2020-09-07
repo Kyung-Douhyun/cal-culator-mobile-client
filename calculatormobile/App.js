@@ -9,6 +9,9 @@ import SummaryStack from './stacks/SummaryStack';
 import CartStack from './stacks/CartStack';
 import RecommendationStack from './stacks/RecommendationStack';
 
+import store from './store/store';
+import { Provider } from 'react-redux';
+
 const Tab = createBottomTabNavigator();
 
 const client = new ApolloClient({
@@ -18,16 +21,18 @@ const client = new ApolloClient({
 
 export default function App() {
 	return (
-		<ApolloProvider client={client}>
-			<NavigationContainer>
-				<Tab.Navigator initialRouteName='About'>
-					<Tab.Screen name='Home' component={HomeStack} />
-					<Tab.Screen name='Summary' component={SummaryStack} />
-					<Tab.Screen name='Cart' component={CartStack} />
-					<Tab.Screen name='Recommendation' component={RecommendationStack} />
-					<Tab.Screen name='About' component={AboutStack} />
-				</Tab.Navigator>
-			</NavigationContainer>
-		</ApolloProvider>
+		<Provider store={store}>
+			<ApolloProvider client={client}>
+				<NavigationContainer>
+					<Tab.Navigator initialRouteName='About'>
+						<Tab.Screen name='Home' component={HomeStack} />
+						<Tab.Screen name='Summary' component={SummaryStack} />
+						<Tab.Screen name='Cart' component={CartStack} />
+						<Tab.Screen name='Recommendation' component={RecommendationStack} />
+						<Tab.Screen name='About' component={AboutStack} />
+					</Tab.Navigator>
+				</NavigationContainer>
+			</ApolloProvider>
+		</Provider>
 	);
 }

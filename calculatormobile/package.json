@@ -40,6 +40,8 @@
     "react-native-vector-icons": "^7.0.0",
     "react-native-web": "~0.11.7",
     "react-native-windows": "^0.63.0",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
     "subscriptions-transport-ws": "^0.9.18",
     "victory-native": "^35.0.1"
   },
