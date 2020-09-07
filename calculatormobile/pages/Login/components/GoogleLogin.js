@@ -1,8 +1,10 @@
 /* eslint-disable no-catch-shadow */
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Modal, SafeAreaView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { useMutation } from '@apollo/client';
 import auth from '@react-native-firebase/auth';
+import LinearGradient from 'react-native-linear-gradient';
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 import AddUserInfoModal from './AddUserInfoModal';
 import ADD_USER from '../../../graphQL/ADD_USER';
@@ -64,7 +66,17 @@ export default function GoogleLogin() {
 	};
 	return (
 		<View style={styles.container}>
-			<Text onPress={firebaseGoogleLogin}>Google Login</Text>
+			<TouchableOpacity style={styles.google__login} onPress={firebaseGoogleLogin}>
+				<Icon
+					containerStyle={styles.google__login__icon}
+					name='google'
+					size={30}
+					iconStyle={{ color: '#FFFFFF' }}
+					type='material-community'
+				/>
+				<Text style={styles.google__login__text}>Login With Google</Text>
+			</TouchableOpacity>
+
 			<AddUserInfoModal
 				modal={modal}
 				user={user}
@@ -78,9 +90,34 @@ export default function GoogleLogin() {
 
 const styles = StyleSheet.create({
 	container: {
-		height: 60,
+		flex: 0.25,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#ddd',
+	},
+	google__login: {
+		height: 60,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignSelf: 'center',
+		width: 300,
+		backgroundColor: '#D50F25',
+		borderRadius: 12,
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 5,
+		},
+		shadowOpacity: 0.34,
+		shadowRadius: 6.27,
+		elevation: 10,
+	},
+	google__login__icon: {
+		marginRight: 20,
+		top: 14,
+	},
+	google__login__text: {
+		fontWeight: '700',
+		top: 20,
+		color: '#FFFFFF',
 	},
 });

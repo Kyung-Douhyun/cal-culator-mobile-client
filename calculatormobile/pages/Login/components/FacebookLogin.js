@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { useMutation } from '@apollo/client';
 import AddUserInfoModal from './AddUserInfoModal';
 import ADD_USER from '../../../graphQL/ADD_USER';
@@ -73,7 +74,16 @@ export default function FacebookLogin() {
 	};
 	return (
 		<View style={styles.container}>
-			<Text onPress={firebaseFacebookLogin}>Facebook Login</Text>
+			<TouchableOpacity style={styles.facebook__login} onPress={firebaseFacebookLogin}>
+				<Icon
+					containerStyle={styles.facebook__login__icon}
+					name='facebook'
+					size={30}
+					iconStyle={{ color: '#FFFFFF' }}
+					type='material-community'
+				/>
+				<Text style={styles.facebook__login__text}>Login With Facebook</Text>
+			</TouchableOpacity>
 			<AddUserInfoModal
 				modal={modal}
 				user={user}
@@ -87,9 +97,34 @@ export default function FacebookLogin() {
 
 const styles = StyleSheet.create({
 	container: {
-		height: 60,
+		flex: 0.25,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'skyblue',
+	},
+	facebook__login: {
+		height: 60,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignSelf: 'center',
+		width: 300,
+		backgroundColor: '#3b5998',
+		borderRadius: 12,
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 5,
+		},
+		shadowOpacity: 0.34,
+		shadowRadius: 6.27,
+		elevation: 10,
+	},
+	facebook__login__icon: {
+		marginRight: 20,
+		top: 14,
+	},
+	facebook__login__text: {
+		fontWeight: '700',
+		top: 20,
+		color: '#FFFFFF',
 	},
 });

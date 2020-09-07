@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Image } from 'react-native-elements';
 import KakaoLogins, { KAKAO_AUTH_TYPES } from '@react-native-seoul/kakao-login';
 import { useMutation } from '@apollo/client';
 import AddUserInfoModal from './AddUserInfoModal';
 import ADD_USER from '../../../graphQL/ADD_USER';
 import ADD_USER_INFO from '../../../graphQL/ADD_USER_INFO';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 if (!KakaoLogins) {
 	console.error('Module is Not Linked');
@@ -108,8 +110,14 @@ export default function KakaotalkLogin() {
 	};
 	return (
 		<View style={styles.container}>
-			<Text>{token}</Text>
-			<Text onPress={kakaoLogin}>Kakaotalk Login</Text>
+			<TouchableOpacity style={styles.kakao__login} onPress={kakaoLogin}>
+				<Image
+					containerStyle={styles.kakao__login__icon}
+					source={require('../../../asset/Image/kakao_symbol.png')}
+				/>
+				<Text style={styles.kakao_login_text}>Login With Kakao</Text>
+			</TouchableOpacity>
+
 			<AddUserInfoModal
 				modal={modal}
 				user={user}
@@ -123,9 +131,35 @@ export default function KakaotalkLogin() {
 
 const styles = StyleSheet.create({
 	container: {
-		height: 60,
+		flex: 0.25,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'yellow',
+	},
+	kakao__login: {
+		height: 60,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignSelf: 'center',
+		width: 300,
+		backgroundColor: '#FEE500',
+		borderRadius: 12,
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 5,
+		},
+		shadowOpacity: 0.34,
+		shadowRadius: 6.27,
+		elevation: 10,
+	},
+	kakao__login__icon: {
+		top: 18,
+		height: 35 * 0.7,
+		width: 36 * 0.7,
+		marginRight: 20,
+	},
+	kakao_login_text: {
+		fontWeight: '700',
+		top: 20,
 	},
 });
