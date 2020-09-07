@@ -4,6 +4,8 @@ import { foodusersDailyQuery } from '../queries';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import { PricingCard } from 'react-native-elements';
 
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
 import dailyRecommendation from '../helperFunctions/dailyRecommendation';
 import calculateIntake from '../helperFunctions/calculateIntake';
 
@@ -37,15 +39,15 @@ function Item({ nutrition, recommendedDaily }) {
 	);
 }
 
-export default function DailyDetails({ dwm }) {
-	const recommendedDaily = dailyRecommendation(26, 'Male');
+function DailyDetails({ userInfo, summaryInfo }) {
+	const recommendedDaily = dailyRecommendation(userInfo.userAge, userInfo.userGender);
 	const [dailyData, setDailyData] = useState([]);
 
-	const { loading, data } = useQuery(foodusersDailyQuery, {
+	const { loading } = useQuery(foodusersDailyQuery, {
 		variables: {
 			user_id: '5f4a4b1a5668613a24e4e744',
-			date: dwm.date,
-			dwm: dwm.type,
+			date: summaryInfo.date,
+			dwm: summaryInfo.dwm,
 		},
 		onCompleted: data => {
 			setDailyData(calculateIntake(recommendedDaily, data.foodusersDate, 'details'));
@@ -80,3 +82,12 @@ const styles = StyleSheet.create({
 		display: 'flex',
 	},
 });
+
+const mapStateToProps = state => {
+	return {
+		userInfo: state.userInfo,
+		summaryInfo: state.summaryInfo,
+	};
+};
+
+export default connect(mapStateToProps)(DailyDetails);
