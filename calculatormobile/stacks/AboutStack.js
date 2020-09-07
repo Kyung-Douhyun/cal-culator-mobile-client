@@ -23,7 +23,7 @@ export default function AboutStack({ navigation }) {
 				name='Login'
 				component={Login}
 				options={{
-					headerTitle: 'About',
+					headerTitle: 'Setting',
 				}}
 			/>
 		</Stack.Navigator>
