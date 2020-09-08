@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import DatePicker from './DatePicker';
 import DateRangePicker from './DateRangePicker';
+import DateMonthPicker from './DateMonthPicker';
 import * as actionTypes from '../../../store/actions';
 
 function DatePickerModal({ summaryInfo, calendarCancel, calendarConfirm }) {
@@ -13,8 +14,10 @@ function DatePickerModal({ summaryInfo, calendarCancel, calendarConfirm }) {
 			<View style={styles.container}>
 				{summaryInfo.dwm === 'daily' ? (
 					<DatePicker selectedDates={selectedDates} setSelectedDates={setSelectedDates} />
-				) : (
+				) : summaryInfo.dwm === 'range' ? (
 					<DateRangePicker selectedDates={selectedDates} setSelectedDates={setSelectedDates} />
+				) : (
+					<DateMonthPicker selectedDates={selectedDates} setSelectedDates={setSelectedDates} />
 				)}
 				<TouchableOpacity
 					style={styles.cancelBtn}

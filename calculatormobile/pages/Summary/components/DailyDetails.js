@@ -5,7 +5,7 @@ import { ScrollView, View, StyleSheet, Text } from 'react-native';
 import { PricingCard } from 'react-native-elements';
 
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../store/actions';
+
 import dailyRecommendation from '../helperFunctions/dailyRecommendation';
 import calculateIntake from '../helperFunctions/calculateIntake';
 

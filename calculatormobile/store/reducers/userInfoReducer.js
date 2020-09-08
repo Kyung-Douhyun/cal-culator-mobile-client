@@ -3,7 +3,7 @@ import * as actionTypes from '../actions';
 
 const initialState = {
 	isLogin: false,
-	userId: 'test',
+	userId: '5f4a4b1a5668613a24e4e744',
 	userAge: 26,
 	userGender: 'Male',
 };
