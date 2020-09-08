@@ -9,6 +9,7 @@ import DailyChart from './components/DailyChart';
 import RangeChart from './components/RangeChart';
 import MonthlyChart from './components/MonthlyChart';
 import DailyDetails from './components/DailyDetails';
+import RangeDetails from './components/RangeDetails';
 import ReportType from './components/ReportType';
 import DatePickerModal from './components/DatePickerModal';
 
@@ -21,10 +22,11 @@ function Summary({ summaryInfo }) {
 			<RangeChart />
 		) : showChart && dwm === 'monthly' ? (
 			<MonthlyChart />
-		) : (
+		) : dwm === 'daily' ? (
 			<DailyDetails />
+		) : (
+			<RangeDetails />
 		);
-		// dwm === 'daily' ? <DailyDetails />
 	};
 
 	return (
@@ -32,7 +34,6 @@ function Summary({ summaryInfo }) {
 			<DatePickerModal />
 			<View style={globalStyle.container}>
 				<DWMButtons />
-				{/* <DailyDetails /> */}
 				{chartOrDetails()}
 				<ReportType />
 			</View>

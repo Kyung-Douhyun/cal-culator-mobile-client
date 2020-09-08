@@ -39,7 +39,17 @@ const reducer = (state = initialState, action) => {
 				dwm: action.payload,
 				datePickerOpen: true,
 			};
-
+		case actionTypes.DISPLAY_OPTION:
+			return {
+				...state,
+				showChart: action.payload === 'chart' ? true : false,
+			};
+		case actionTypes.DETAIL_SPECIFIC_DATE:
+			return {
+				...state,
+				date: action.payload,
+				dwm: 'daily',
+			};
 		default:
 			return state;
 	}
