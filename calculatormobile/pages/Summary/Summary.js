@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { globalStyle } from '../styles/styles';
 
 import DWMButtons from './components/DWMButtons';
@@ -10,6 +10,7 @@ import RangeChart from './components/RangeChart';
 import MonthlyChart from './components/MonthlyChart';
 import DailyDetails from './components/DailyDetails';
 import RangeDetails from './components/RangeDetails';
+import MonthlyDetails from './components/MonthlyDetails';
 import ReportType from './components/ReportType';
 import DatePickerModal from './components/DatePickerModal';
 
@@ -24,8 +25,10 @@ function Summary({ summaryInfo }) {
 			<MonthlyChart />
 		) : dwm === 'daily' ? (
 			<DailyDetails />
-		) : (
+		) : dwm === 'range' ? (
 			<RangeDetails />
+		) : (
+			<MonthlyDetails />
 		);
 	};
 

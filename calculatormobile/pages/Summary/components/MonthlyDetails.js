@@ -28,9 +28,9 @@ function Item({ dateNCalories, recommendedDaily, checkSpecificDate }) {
 	);
 }
 
-function RangeDetails({ userInfo, summaryInfo, checkSpecificDate }) {
+function MonthlyDetails({ userInfo, summaryInfo, checkSpecificDate }) {
 	const recommendedDaily = dailyRecommendation(userInfo.userAge, userInfo.userGender);
-	const [rangeData, setRangeData] = useState([]);
+	const [monthlyData, setMonthlyData] = useState([]);
 	const { loading } = useQuery(foodusersDailyQuery, {
 		variables: {
 			user_id: userInfo.userId,
@@ -38,7 +38,7 @@ function RangeDetails({ userInfo, summaryInfo, checkSpecificDate }) {
 			dwm: summaryInfo.dwm,
 		},
 		onCompleted: data => {
-			setRangeData(calculateCalories(data, summaryInfo.date));
+			setMonthlyData(calculateCalories(data, summaryInfo.date));
 		},
 	});
 
@@ -52,10 +52,10 @@ function RangeDetails({ userInfo, summaryInfo, checkSpecificDate }) {
 	return (
 		<View style={styles.container}>
 			<ScrollView>
-				{rangeData.length === 0 ? (
+				{monthlyData.length === 0 ? (
 					<Text>You haven't eaten anything in this period!</Text>
 				) : (
-					rangeData.map((dateNCalories, idx) => (
+					monthlyData.map((dateNCalories, idx) => (
 						<Item
 							key={idx}
 							dateNCalories={dateNCalories}
@@ -94,4 +94,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RangeDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(MonthlyDetails);

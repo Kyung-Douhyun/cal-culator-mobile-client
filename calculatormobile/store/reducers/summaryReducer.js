@@ -19,12 +19,17 @@ const reducer = (state = initialState, action) => {
 				datePickerOpen: false,
 			};
 		case actionTypes.CALENDAR_CONFIRM:
-			let dateArr = Object.keys(action.payload).sort();
 			let dateStr;
 			if (state.dwm === 'daily') {
+				let dateArr = Object.keys(action.payload).sort();
 				dateStr = dateArr[0];
-			} else {
+			} else if (state.dwm === 'range') {
+				let dateArr = Object.keys(action.payload).sort();
 				dateStr = `${dateArr[0]} ${dateArr[dateArr.length - 1]}`;
+			} else {
+				let currentDate = new Date(action.payload.toISOString().slice(0, 10));
+				currentDate.setDate(currentDate.getDate() + 1);
+				dateStr = currentDate.toISOString().slice(0, 7);
 			}
 
 			return {
