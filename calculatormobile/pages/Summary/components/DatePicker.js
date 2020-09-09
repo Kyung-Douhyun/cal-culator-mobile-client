@@ -8,6 +8,7 @@ export default function DatePicker({ selectedDates, setSelectedDates }) {
 		<View style={styles.datePicker}>
 			<Calendar
 				onDayPress={day => {
+					console.log(1231231);
 					setSelectedDates(pickSingleDate(day.dateString));
 				}}
 				markingType='custom'
