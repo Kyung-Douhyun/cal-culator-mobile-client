@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
@@ -6,7 +6,6 @@ import * as actionTypes from '../../../store/actions';
 import { Calendar } from 'react-native-calendars';
 
 function SelectDateAndAdd({ homeInfo, openHomeCalendar, selectDate }) {
-	const [selectedDates, setSelectedDates] = useState(null);
 	return (
 		<View style={styles.container}>
 			<Modal animationType='slide' transparent={false} visible={homeInfo.datePickerOpen}>

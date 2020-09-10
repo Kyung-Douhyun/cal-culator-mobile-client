@@ -5,6 +5,7 @@ const initialState = {
 	foodInfo: {
 		image: require('../../asset/Image/cal_culator.jpg'),
 	},
+	foodName: '',
 	selectedDate: new Date().toISOString().slice(0, 10),
 	datePickerOpen: false,
 };
@@ -21,6 +22,11 @@ const reducer = (state = initialState, action) => {
 				...state,
 				datePickerOpen: false,
 				selectedDate: action.payload,
+			};
+		case actionTypes.SEARCH_HANDLER:
+			return {
+				...state,
+				foodName: action.payload,
 			};
 		default:
 			return state;

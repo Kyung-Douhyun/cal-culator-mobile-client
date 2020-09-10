@@ -3,12 +3,10 @@ import { View, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 function FoodImage({ homeInfo }) {
+	const image = homeInfo.foodInfo.image;
 	return (
 		<View style={styles.container}>
-			<Image
-				source={{ uri: 'https://spoonacular.com/recipeImages/749013-312x231.jpeg' }}
-				style={styles.img}
-			/>
+			<Image source={typeof image === 'number' ? image : { uri: image }} style={styles.img} />
 		</View>
 	);
 }
@@ -24,8 +22,9 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	img: {
-		// resizeMode: 'contain',
-		// height: '100%',
+		height: '100%',
+		width: '100%',
+		resizeMode: 'contain',
 	},
 });
 
