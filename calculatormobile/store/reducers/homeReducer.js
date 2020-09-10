@@ -3,7 +3,7 @@ import * as actionTypes from '../actions';
 
 const initialState = {
 	foodInfo: {
-		image: 'https://source.unsplash.com/1600x900/?nature,water',
+		image: require('../../asset/Image/cal_culator.jpg'),
 	},
 	selectedDate: new Date().toISOString().slice(0, 10),
 	datePickerOpen: false,

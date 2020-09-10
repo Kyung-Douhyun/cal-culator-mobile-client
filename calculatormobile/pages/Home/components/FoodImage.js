@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
+import { connect } from 'react-redux';
 
-export default function FoodImage() {
+function FoodImage({ homeInfo }) {
 	return (
 		<View style={styles.container}>
-			<Text>FoodImage</Text>
+			<Image
+				source={{ uri: 'https://spoonacular.com/recipeImages/749013-312x231.jpeg' }}
+				style={styles.img}
+			/>
 		</View>
 	);
 }
@@ -19,4 +23,16 @@ const styles = StyleSheet.create({
 		backgroundColor: 'blue',
 		marginBottom: 10,
 	},
+	img: {
+		// resizeMode: 'contain',
+		// height: '100%',
+	},
 });
+
+const mapStateToProps = state => {
+	return {
+		homeInfo: state.homeInfo,
+	};
+};
+
+export default connect(mapStateToProps)(FoodImage);
