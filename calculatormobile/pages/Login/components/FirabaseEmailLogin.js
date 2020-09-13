@@ -12,7 +12,7 @@ export default function FirebaseEmailLogin({
 	loginModalHandler,
 }) {
 	const [email, setEmail] = useState('');
-	const [password, setPassWord] = useState('');
+	const [password, setPassword] = useState('');
 	const [login] = useMutation(LOGIN, {
 		onCompleted({ login: { id, name, email } }) {
 			console.log({ id, name, email });
@@ -41,8 +41,8 @@ export default function FirebaseEmailLogin({
 					console.log('FIREBASE EMAIL LOGIN SUCCESS');
 					await login({
 						variables: { email, password },
-					}).then(aa => {
-						if (aa) {
+					}).then(logined => {
+						if (logined) {
 							console.log('LOGIN MUTATION SUCCESS');
 						}
 					});
@@ -52,7 +52,7 @@ export default function FirebaseEmailLogin({
 				if (error.code === 'AUTH/INVALID EMAIL') {
 					console.log('THAT EMAIL ADDRESS IS INVALID!');
 				}
-				console.error(error);
+				console.error('error :', error);
 			});
 	};
 
@@ -64,7 +64,7 @@ export default function FirebaseEmailLogin({
 			fullScreen={true}
 			isVisible={loginModal}
 		>
-			<SafeAreaView style={styles.safeAreaView}>
+			<View style={styles.container}>
 				<View style={styles.logo}>
 					<Animated.Image
 						style={{ width: 100, height: 100, transform: [{ rotate: spin }] }}
@@ -81,6 +81,7 @@ export default function FirebaseEmailLogin({
 						<Text style={styles.login__modal__input__text}>EMAIL</Text>
 					</LinearGradient>
 					<Input
+						autoCapitalize='none'
 						inputContainerStyle={{}}
 						placeholder='이메일을 입력해 주세요.'
 						leftIcon={<Icon name='email' type='material-community' size={24} color='lightgrey' />}
@@ -98,7 +99,7 @@ export default function FirebaseEmailLogin({
 					<Input
 						placeholder='비밀번호를 입력해 주세요.'
 						leftIcon={<Icon name='lock' type='material-community' size={24} color='lightgrey' />}
-						onChangeText={text => setPassWord(text)}
+						onChangeText={text => setPassword(text)}
 					/>
 				</View>
 				<View style={styles.login__modal__button}>
@@ -130,13 +131,13 @@ export default function FirebaseEmailLogin({
 				<View style={styles.login__modal__footer}>
 					<Text style={styles.login__modal__footer__text}>CAL-CULATOR_2020</Text>
 				</View>
-			</SafeAreaView>
+			</View>
 		</Overlay>
 	);
 }
 
 const styles = StyleSheet.create({
-	safeAreaView: {
+	container: {
 		flex: 1,
 	},
 	logo: {

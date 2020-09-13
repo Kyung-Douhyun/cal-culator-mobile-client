@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import 'react-native-gesture-handler';
@@ -15,14 +15,14 @@ import { Provider } from 'react-redux';
 const Tab = createBottomTabNavigator();
 
 const client = new ApolloClient({
-	uri: 'http://localhost:4001/graphql',
+	link: new HttpLink({ uri: 'http://localhost:4001/graphql', credentials: 'same-origin' }),
 	cache: new InMemoryCache(),
 });
 
 export default function App() {
 	return (
-		<Provider store={store}>
-			<ApolloProvider client={client}>
+		<ApolloProvider client={client}>
+			<Provider store={store}>
 				<NavigationContainer>
 					<Tab.Navigator initialRouteName='About'>
 						<Tab.Screen name='Home' component={HomeStack} />
@@ -32,7 +32,7 @@ export default function App() {
 						<Tab.Screen name='About' component={AboutStack} />
 					</Tab.Navigator>
 				</NavigationContainer>
-			</ApolloProvider>
-		</Provider>
+			</Provider>
+		</ApolloProvider>
 	);
 }

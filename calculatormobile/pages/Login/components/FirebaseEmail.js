@@ -29,15 +29,21 @@ export default function FirebaseEmail() {
 				/>
 				<Text style={styles.email__login__text}>Login With Email</Text>
 			</TouchableOpacity>
-			<FirebaseEmailLogin
-				loginModal={loginModal}
-				registerModalHandler={registerModalHandler}
-				loginModalHandler={loginModalHandler}
-			/>
-			<FirebaseEmailRegister
-				registerModal={registerModal}
-				registerModalHandler={registerModalHandler}
-			/>
+			<View>
+				<View>
+					<FirebaseEmailLogin
+						loginModal={loginModal}
+						registerModalHandler={registerModalHandler}
+						loginModalHandler={loginModalHandler}
+					/>
+				</View>
+				<View>
+					<FirebaseEmailRegister
+						registerModal={registerModal}
+						registerModalHandler={registerModalHandler}
+					/>
+				</View>
+			</View>
 		</View>
 	);
 }

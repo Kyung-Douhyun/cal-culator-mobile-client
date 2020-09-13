@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client';
 import AddUserInfoModal from './AddUserInfoModal';
 import ADD_USER from '../../../graphQL/ADD_USER';
 import ADD_USER_INFO from '../../../graphQL/ADD_USER_INFO';
+import DELETE_USER from '../../../graphQL/DELETE_USER';
 
 export default function FacebookLogin() {
 	const [modal, setModal] = useState(false);
@@ -26,6 +27,12 @@ export default function FacebookLogin() {
 	const [addUserInfo] = useMutation(ADD_USER_INFO, {
 		onCompleted({ addUserInfo: { id, name, email, gender, age } }) {
 			console.log({ id, name, email, gender, age });
+		},
+	});
+
+	const [deleteUser] = useMutation(DELETE_USER, {
+		onCompleted({ deleteUser: { id, name, email } }) {
+			console.log({ id, name, email });
 		},
 	});
 
@@ -69,6 +76,13 @@ export default function FacebookLogin() {
 		});
 	};
 
+	const deleteUserHandler = async ({ email }) => {
+		await deleteUser({
+			variables: { email },
+		});
+		modalHandler();
+	};
+
 	const modalHandler = () => {
 		setModal(prevState => !prevState);
 	};
@@ -84,13 +98,16 @@ export default function FacebookLogin() {
 				/>
 				<Text style={styles.facebook__login__text}>Login With Facebook</Text>
 			</TouchableOpacity>
-			<AddUserInfoModal
-				modal={modal}
-				user={user}
-				setUser={setUser}
-				completeGoogleLogin={completeFacebookLogin}
-				modalHandler={modalHandler}
-			/>
+			<View>
+				<AddUserInfoModal
+					modal={modal}
+					user={user}
+					setUser={setUser}
+					completeGoogleLogin={completeFacebookLogin}
+					modalHandler={modalHandler}
+					deleteUserHandler={deleteUserHandler}
+				/>
+			</View>
 		</View>
 	);
 }

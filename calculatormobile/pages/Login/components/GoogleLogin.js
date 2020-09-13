@@ -4,11 +4,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useMutation } from '@apollo/client';
 import auth from '@react-native-firebase/auth';
-import LinearGradient from 'react-native-linear-gradient';
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 import AddUserInfoModal from './AddUserInfoModal';
 import ADD_USER from '../../../graphQL/ADD_USER';
 import ADD_USER_INFO from '../../../graphQL/ADD_USER_INFO';
+import DELETE_USER from '../../../graphQL/DELETE_USER';
 
 GoogleSignin.configure({
 	webClientId: '129551562719-pnfn8u9ibnd9rot5fmi6je1lgddv6b6u.apps.googleusercontent.com',
@@ -32,6 +32,12 @@ export default function GoogleLogin() {
 	const [addUserInfo] = useMutation(ADD_USER_INFO, {
 		onCompleted({ addUserInfo: { id, name, email, gender, age } }) {
 			console.log({ id, name, email, gender, age });
+		},
+	});
+
+	const [deleteUser] = useMutation(DELETE_USER, {
+		onCompleted({ deleteUser: { id, name, email } }) {
+			console.log({ id, name, email });
 		},
 	});
 
@@ -61,6 +67,13 @@ export default function GoogleLogin() {
 		});
 	};
 
+	const deleteUserHandler = async ({ email }) => {
+		await deleteUser({
+			variables: { email },
+		});
+		modalHandler();
+	};
+
 	const modalHandler = () => {
 		setModal(prevState => !prevState);
 	};
@@ -76,14 +89,16 @@ export default function GoogleLogin() {
 				/>
 				<Text style={styles.google__login__text}>Login With Google</Text>
 			</TouchableOpacity>
-
-			<AddUserInfoModal
-				modal={modal}
-				user={user}
-				setUser={setUser}
-				completeGoogleLogin={completeGoogleLogin}
-				modalHandler={modalHandler}
-			/>
+			<View>
+				<AddUserInfoModal
+					modal={modal}
+					user={user}
+					setUser={setUser}
+					completeGoogleLogin={completeGoogleLogin}
+					modalHandler={modalHandler}
+					deleteUserHandler={deleteUserHandler}
+				/>
+			</View>
 		</View>
 	);
 }

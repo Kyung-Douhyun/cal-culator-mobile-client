@@ -19,26 +19,55 @@ export default function Login() {
 			.signOut()
 			.then(() => console.log('User signed out!'));
 	};
-	return (
-		<View style={styles.container}>
-			{!logined ? (
+
+	if (!logined) {
+		return (
+			<View style={styles.container}>
 				<TouchableOpacity onPress={toggleOverlay} style={styles.login__logout}>
 					<Text style={styles.login__logout__text}>로그인</Text>
-					<Overlay overlayStyle={styles.login__modal} isVisible={visible}>
-						<KakaotalkLogin />
-						<GoogleLogin />
-						<FacebookLogin />
-						<FirebaseEmail />
-						<CloseLoginModal toggleOverlay={toggleOverlay} />
-					</Overlay>
+					<View>
+						<Overlay animationType='slide' overlayStyle={styles.login__modal} isVisible={visible}>
+							<KakaotalkLogin />
+							<GoogleLogin />
+							<FacebookLogin />
+							<FirebaseEmail />
+							<CloseLoginModal toggleOverlay={toggleOverlay} />
+						</Overlay>
+					</View>
 				</TouchableOpacity>
-			) : (
+			</View>
+		);
+	} else {
+		return (
+			<View style={styles.container}>
 				<TouchableOpacity onPress={firebaseLogout} style={styles.login__logout}>
 					<Text style={styles.login__logout__text}>로그아웃</Text>
 				</TouchableOpacity>
-			)}
-		</View>
-	);
+			</View>
+		);
+	}
+	// return (
+	// 	<View style={styles.container}>
+	// 		{!logined ? (
+	// 			<TouchableOpacity onPress={toggleOverlay} style={styles.login__logout}>
+	// 				<Text style={styles.login__logout__text}>로그인</Text>
+	// 				<View>
+	// 					<Overlay overlayStyle={styles.login__modal} isVisible={visible}>
+	// 						<KakaotalkLogin />
+	// 						<GoogleLogin />
+	// 						<FacebookLogin />
+	// 						<FirebaseEmail />
+	// 						<CloseLoginModal toggleOverlay={toggleOverlay} />
+	// 					</Overlay>
+	// 				</View>
+	// 			</TouchableOpacity>
+	// 		) : (
+	// 			<TouchableOpacity onPress={firebaseLogout} style={styles.login__logout}>
+	// 				<Text style={styles.login__logout__text}>로그아웃</Text>
+	// 			</TouchableOpacity>
+	// 		)}
+	// 	</View>
+	// );
 }
 
 const styles = StyleSheet.create({
