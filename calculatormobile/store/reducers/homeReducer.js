@@ -28,6 +28,13 @@ const reducer = (state = initialState, action) => {
 				...state,
 				foodName: action.payload,
 			};
+		case actionTypes.FOOD_IMAGE_HANDLER:
+			return {
+				...state,
+				foodInfo: {
+					image: action.payload,
+				},
+			};
 		default:
 			return state;
 	}
