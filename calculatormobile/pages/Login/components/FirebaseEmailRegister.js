@@ -92,7 +92,7 @@ export default function FirebaseEmail({ registerModal, registerModalHandler }) {
 	};
 	return (
 		<Overlay animationType='slide' fullScreen={true} transparent={false} isVisible={registerModal}>
-			<SafeAreaView style={styles.safeAreaView}>
+			<View style={styles.container}>
 				<View style={styles.logo}>
 					<Animated.Image
 						style={{ width: 100, height: 100, transform: [{ rotate: spin }] }}
@@ -174,7 +174,6 @@ export default function FirebaseEmail({ registerModal, registerModalHandler }) {
 							onIconPress={femaleGenderHandler}
 						/>
 					</View>
-
 					<LinearGradient
 						colors={['#87B672', '#A8CA99', '#D4E4CD']}
 						start={{ x: 0, y: 0.5 }}
@@ -211,13 +210,13 @@ export default function FirebaseEmail({ registerModal, registerModalHandler }) {
 						onPress={registerModalHandler}
 					/>
 				</View>
-			</SafeAreaView>
+			</View>
 		</Overlay>
 	);
 }
 
 const styles = StyleSheet.create({
-	safeAreaView: {
+	container: {
 		flex: 1,
 	},
 	logo: {

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
+
 import * as actionTypes from '../../../store/actions';
 
 function ReportType({ displayOption }) {
@@ -21,6 +22,7 @@ function ReportType({ displayOption }) {
 					displayOption('detail');
 				}}
 			>
+
 				<Text>Detail Report</Text>
 			</TouchableOpacity>
 		</View>

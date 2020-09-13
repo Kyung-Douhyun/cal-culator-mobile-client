@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 const ADD_USER_INFO = gql`
 	mutation addUserInfo($email: String!, $gender: String!, $age: Int!) {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Image } from 'react-native-elements';
 import KakaoLogins, { KAKAO_AUTH_TYPES } from '@react-native-seoul/kakao-login';
 import { useMutation } from '@apollo/client';
 import AddUserInfoModal from './AddUserInfoModal';
 import ADD_USER from '../../../graphQL/ADD_USER';
 import ADD_USER_INFO from '../../../graphQL/ADD_USER_INFO';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import DELETE_USER from '../../../graphQL/DELETE_USER';
 
 if (!KakaoLogins) {
 	console.error('Module is Not Linked');
@@ -50,6 +50,12 @@ export default function KakaotalkLogin() {
 	const [addUserInfo] = useMutation(ADD_USER_INFO, {
 		onCompleted({ addUserInfo: { id, name, email, gender, age } }) {
 			console.log({ id, name, email, gender, age });
+		},
+	});
+
+	const [deleteUser] = useMutation(DELETE_USER, {
+		onCompleted({ deleteUser: { id, name, email } }) {
+			console.log({ id, name, email });
 		},
 	});
 
@@ -105,6 +111,13 @@ export default function KakaotalkLogin() {
 		});
 	};
 
+	const deleteUserHandler = async ({ email }) => {
+		await deleteUser({
+			variables: { email },
+		});
+		modalHandler();
+	};
+
 	const modalHandler = () => {
 		setModal(prevState => !prevState);
 	};
@@ -117,14 +130,16 @@ export default function KakaotalkLogin() {
 				/>
 				<Text style={styles.kakao_login_text}>Login With Kakao</Text>
 			</TouchableOpacity>
-
-			<AddUserInfoModal
-				modal={modal}
-				user={user}
-				setUser={setUser}
-				completeGoogleLogin={completeKakaoLogin}
-				modalHandler={modalHandler}
-			/>
+			<View>
+				<AddUserInfoModal
+					modal={modal}
+					user={user}
+					setUser={setUser}
+					completeGoogleLogin={completeKakaoLogin}
+					modalHandler={modalHandler}
+					deleteUserHandler={deleteUserHandler}
+				/>
+			</View>
 		</View>
 	);
 }
