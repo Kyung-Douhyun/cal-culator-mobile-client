@@ -1,15 +1,25 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
 
-export default function SearchBar() {
+function SearchBar({ searchHandler }) {
+	const [text, setText] = useState('');
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.searchInput}>
-				<TextInput placeholder='what did i eat' />
+				<TextInput placeholder='what did i eat' onChangeText={val => setText(val)} value={text} />
 			</View>
-			<View style={styles.searchBtn}>
-				<Button title='Search' />
-			</View>
+			<TouchableOpacity
+				style={styles.searchBtn}
+				onPress={() => {
+					searchHandler(text);
+					setText('');
+				}}
+			>
+				<Text>Search</Text>
+			</TouchableOpacity>
 		</View>
 	);
 }
@@ -27,9 +37,29 @@ const styles = StyleSheet.create({
 		backgroundColor: '#eee',
 		width: '70%',
 		height: '100%',
+		justifyContent: 'center',
 	},
 	searchBtn: {
 		backgroundColor: 'lightgreen',
 		height: '100%',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '20%',
 	},
 });
+
+const mapStateToProps = state => {
+	return {
+		homeInfo: state.homeInfo,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		searchHandler: foodName => {
+			dispatch({ type: actionTypes.SEARCH_HANDLER, payload: foodName });
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

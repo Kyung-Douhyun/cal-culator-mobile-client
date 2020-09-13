@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { globalStyle } from '../styles/styles';
 
 import DWMButtons from './components/DWMButtons';
@@ -9,34 +9,36 @@ import DailyChart from './components/DailyChart';
 import RangeChart from './components/RangeChart';
 import MonthlyChart from './components/MonthlyChart';
 import DailyDetails from './components/DailyDetails';
+import RangeDetails from './components/RangeDetails';
+import MonthlyDetails from './components/MonthlyDetails';
 import ReportType from './components/ReportType';
 import DatePickerModal from './components/DatePickerModal';
 
-import * as actionTypes from '../../store/actions';
+function Summary({ summaryInfo }) {
+	const { showChart, dwm } = summaryInfo;
+	const chartOrDetails = () => {
+		return showChart && dwm === 'daily' ? (
+			<DailyChart />
+		) : showChart && dwm === 'range' ? (
+			<RangeChart />
+		) : showChart && dwm === 'monthly' ? (
+			<MonthlyChart />
+		) : dwm === 'daily' ? (
+			<DailyDetails />
+		) : dwm === 'range' ? (
+			<RangeDetails />
+		) : (
+			<MonthlyDetails />
+		);
+	};
 
-function Summary({ userInfo }) {
-	console.log(userInfo);
-	const [showChart, setShowChart] = useState(true);
-	const [datePickerOpen, setDatePickerOpen] = useState(false);
-	const [dwmRef, setDwmRef] = useState('daily');
-	const [dwm, setDWM] = useState({
-		type: 'daily',
-		date: new Date().toISOString().slice(0, 10),
-	});
 	return (
 		<View style={globalStyle.page}>
-			<DatePickerModal
-				dwm={dwm}
-				setDWM={setDWM}
-				datePickerOpen={datePickerOpen}
-				setDatePickerOpen={setDatePickerOpen}
-				dwmRef={dwmRef}
-				setDwmRef={setDwmRef}
-			/>
+			<DatePickerModal />
 			<View style={globalStyle.container}>
-				<DWMButtons setDWM={setDWM} setDatePickerOpen={setDatePickerOpen} />
-				<DailyDetails dwm={dwm} />
-				<ReportType setShowChart={setShowChart} />
+				<DWMButtons />
+				{chartOrDetails()}
+				<ReportType />
 			</View>
 		</View>
 	);
@@ -45,15 +47,12 @@ function Summary({ userInfo }) {
 const mapStateToProps = state => {
 	return {
 		userInfo: state.userInfo,
+		summaryInfo: state.summaryInfo,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
-	return {
-		login: () => {
-			dispatch({ type: actionTypes.LOGIN });
-		},
-	};
+	return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Summary);

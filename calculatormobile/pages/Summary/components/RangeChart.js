@@ -3,18 +3,19 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { VictoryChart, VictoryBar, VictoryAxis } from 'victory-native';
 import { useQuery } from '@apollo/client';
 
+import { connect } from 'react-redux';
 import { foodusersRangeQuery } from '../queries';
 import calculateCalories from '../helperFunctions/calculateCalories';
 
-export default function RangeChart({ dwm }) {
+function RangeChart({ summaryInfo }) {
 	const [data, setData] = useState([]);
 	const { loading } = useQuery(foodusersRangeQuery, {
 		variables: {
 			user_id: '5f4a4b1a5668613a24e4e744',
-			date: dwm.date,
-			dwm: dwm.type,
+			date: summaryInfo.date,
+			dwm: summaryInfo.dwm,
 		},
-		onCompleted: fetchedData => setData(calculateCalories(fetchedData, dwm.date)),
+		onCompleted: fetchedData => setData(calculateCalories(fetchedData, summaryInfo.date)),
 	});
 
 	if (loading) {
@@ -61,3 +62,11 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ddd',
 	},
 });
+
+const mapStateToProps = state => {
+	return {
+		summaryInfo: state.summaryInfo,
+	};
+};
+
+export default connect(mapStateToProps)(RangeChart);

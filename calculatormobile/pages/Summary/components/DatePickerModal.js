@@ -1,33 +1,29 @@
 import React, { useState } from 'react';
 import { Modal, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+
 import DatePicker from './DatePicker';
 import DateRangePicker from './DateRangePicker';
+import DateMonthPicker from './DateMonthPicker';
+import * as actionTypes from '../../../store/actions';
 
-export default function DatePickerModal({
-	datePickerOpen,
-	setDatePickerOpen,
-	dwm,
-	setDWM,
-	dwmRef,
-	setDwmRef,
-}) {
+function DatePickerModal({ summaryInfo, calendarCancel, calendarConfirm }) {
 	const [selectedDates, setSelectedDates] = useState(null);
 	return (
-		<Modal animationType='slide' transparent={false} visible={datePickerOpen}>
+		<Modal animationType='slide' transparent={false} visible={summaryInfo.datePickerOpen}>
 			<View style={styles.container}>
-				{dwm.type === 'daily' ? (
+				{summaryInfo.dwm === 'daily' ? (
 					<DatePicker selectedDates={selectedDates} setSelectedDates={setSelectedDates} />
-				) : (
+				) : summaryInfo.dwm === 'range' ? (
 					<DateRangePicker selectedDates={selectedDates} setSelectedDates={setSelectedDates} />
+				) : (
+					<DateMonthPicker selectedDates={selectedDates} setSelectedDates={setSelectedDates} />
 				)}
 				<TouchableOpacity
 					style={styles.cancelBtn}
 					onPress={() => {
-						setDWM(prevState => {
-							return { ...prevState, type: dwmRef };
-						});
+						calendarCancel();
 						setSelectedDates(null);
-						setDatePickerOpen(false);
 					}}
 				>
 					<Text>Cancel</Text>
@@ -35,18 +31,8 @@ export default function DatePickerModal({
 				<TouchableOpacity
 					style={styles.confirmBtn}
 					onPress={() => {
-						let dateArr = Object.keys(selectedDates).sort();
-						let returnDateStr =
-							dwm.type === 'daily' ? dateArr[0] : `${dateArr[0]} ${dateArr[dateArr.length - 1]}`;
-						setDWM(prevState => {
-							return {
-								...prevState,
-								date: returnDateStr,
-							};
-						});
-						setDatePickerOpen(false);
+						calendarConfirm(selectedDates);
 						setSelectedDates(null);
-						setDwmRef(dwm.type);
 					}}
 				>
 					<Text>Confirm</Text>
@@ -74,3 +60,23 @@ const styles = StyleSheet.create({
 		left: 100,
 	},
 });
+
+const mapStateToProps = state => {
+	return {
+		userInfo: state.userInfo,
+		summaryInfo: state.summaryInfo,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		calendarCancel: () => {
+			dispatch({ type: actionTypes.CALENDAR_CANCEL });
+		},
+		calendarConfirm: date => {
+			dispatch({ type: actionTypes.CALENDAR_CONFIRM, payload: date });
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DatePickerModal);

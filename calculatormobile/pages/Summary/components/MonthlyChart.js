@@ -2,22 +2,21 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { VictoryChart, VictoryArea, VictoryAxis, VictoryClipContainer } from 'victory-native';
 import { useQuery } from '@apollo/client';
+import { connect } from 'react-redux';
 
 import { foodusersMonthlyQuery } from '../queries';
 import calculateCalories from '../helperFunctions/calculateCalories';
 
-export default function MonthlyChart({ dwm }) {
+function MonthlyChart({ userInfo, summaryInfo }) {
 	const [monthlyData, setMonthlyData] = useState([]);
 	const { loading } = useQuery(foodusersMonthlyQuery, {
 		variables: {
-			user_id: '5f4a4b1a5668613a24e4e744',
-			date: '2020-09',
-			dwm: 'monthly',
-			// date: dwm.date,
-			// dwm: dwm.type,
+			user_id: userInfo.userId,
+			date: summaryInfo.date,
+			dwm: summaryInfo.dwm,
 		},
 		onCompleted: data => {
-			setMonthlyData(calculateCalories(data, '2020-09'));
+			setMonthlyData(calculateCalories(data, summaryInfo.date));
 		},
 	});
 
@@ -72,9 +71,11 @@ const styles = StyleSheet.create({
 	},
 });
 
-// [
-//   { x: '2020-09-00', y: 3 },
-//   { x: '2020-09-01', y: 1 },
-//   { x: '2020-09-02', y: 0 },
-//   { x: '2020-09-03', y: 5 },
-// ]
+const mapStateToProps = state => {
+	return {
+		userInfo: state.userInfo,
+		summaryInfo: state.summaryInfo,
+	};
+};
+
+export default connect(mapStateToProps)(MonthlyChart);

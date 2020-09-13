@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { VictoryChart, VictoryPolarAxis, VictoryBar, VictoryTheme } from 'victory-native';
 import { useQuery } from '@apollo/client';
+
+import { connect } from 'react-redux';
 import dailyRecommendation from '../helperFunctions/dailyRecommendation';
 import calculateIntake from '../helperFunctions/calculateIntake';
 
@@ -35,14 +37,14 @@ const defaultDailyData = [
 	{ x: 'vitamin_d', y: 0 },
 ];
 
-export default function DailyChart({ dwm }) {
-	const recommendedDaily = dailyRecommendation(26, 'Male');
+function DailyChart({ userInfo, summaryInfo }) {
+	const recommendedDaily = dailyRecommendation(userInfo.userAge, userInfo.userGender);
 	const [dailyData, setDailyData] = useState(defaultDailyData);
 	const { loading } = useQuery(foodusersDailyQuery, {
 		variables: {
 			user_id: '5f4a4b1a5668613a24e4e744',
-			date: dwm.date,
-			dwm: dwm.type,
+			date: summaryInfo.date,
+			dwm: summaryInfo.dwm,
 		},
 		onCompleted: data => {
 			setDailyData(calculateIntake(recommendedDaily, data.foodusersDate));
@@ -103,3 +105,12 @@ const styles = StyleSheet.create({
 		backgroundColor: '#ddd',
 	},
 });
+
+const mapStateToProps = state => {
+	return {
+		userInfo: state.userInfo,
+		summaryInfo: state.summaryInfo,
+	};
+};
+
+export default connect(mapStateToProps)(DailyChart);
