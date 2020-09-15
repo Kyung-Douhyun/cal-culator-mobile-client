@@ -6,7 +6,7 @@ const initialState = [];
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.ADD_CART:
-			return [];
+			return [...state, action.payload];
 		case actionTypes.DEL_CART:
 			return [];
 		default:

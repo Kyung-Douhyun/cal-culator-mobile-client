@@ -8,7 +8,7 @@ import { searchFoodQuery } from '../queries';
 
 import NutritionCard from './NutritionCard';
 
-function NutritionInfo({ homeInfo, foodImageHandler }) {
+function NutritionInfo({ homeInfo, foodImageHandler, foodIdHandler }) {
 	const [currentFood, setCurrentFood] = useState({});
 
 	const nutritionMapper = () => {
@@ -23,7 +23,10 @@ function NutritionInfo({ homeInfo, foodImageHandler }) {
 		},
 		onCompleted: data => {
 			setCurrentFood(data.foods);
-			data.foods.name !== '' ? foodImageHandler(data.foods.image) : null;
+			if (data.foods.name !== '') {
+				foodImageHandler(data.foods.image);
+				foodIdHandler(data.foods.id);
+			}
 		},
 	});
 
@@ -58,6 +61,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		foodImageHandler: imageUri => {
 			dispatch({ type: actionTypes.FOOD_IMAGE_HANDLER, payload: imageUri });
+		},
+		foodIdHandler: id => {
+			dispatch({ type: actionTypes.FOOD_ID_HANDLER, payload: id });
 		},
 	};
 };
