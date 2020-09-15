@@ -21,3 +21,5 @@ export const searchFoodQuery = gql`
 		}
 	}
 `;
+
+// export const addFoodUserQuery = gql``;

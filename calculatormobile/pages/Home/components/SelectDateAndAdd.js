@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
 import { Calendar } from 'react-native-calendars';
+import ConfirmModal from './ConfirmModal';
 
-function SelectDateAndAdd({ homeInfo, openHomeCalendar, selectDate }) {
+function SelectDateAndAdd({ homeInfo, openHomeCalendar, selectDate, openAddToCartHandler }) {
 	return (
 		<View style={styles.container}>
 			<Modal animationType='slide' transparent={false} visible={homeInfo.datePickerOpen}>
@@ -31,13 +32,16 @@ function SelectDateAndAdd({ homeInfo, openHomeCalendar, selectDate }) {
 					/>
 				</View>
 			</Modal>
+			<Modal animationType='fade' transparent={false} visible={homeInfo.confirmCartOpen}>
+				<ConfirmModal />
+			</Modal>
 
 			<TouchableOpacity onPress={() => openHomeCalendar()}>
 				<Text>{homeInfo.selectedDate}</Text>
 			</TouchableOpacity>
-			<View>
+			<TouchableOpacity onPress={() => openAddToCartHandler()}>
 				<Text>카트담기</Text>
-			</View>
+			</TouchableOpacity>
 		</View>
 	);
 }
@@ -71,6 +75,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		selectDate: dateStr => {
 			dispatch({ type: actionTypes.SELECT_DATE, payload: dateStr });
+		},
+		openAddToCartHandler: () => {
+			dispatch({ type: actionTypes.OPEN_ADD_TO_CART });
 		},
 	};
 };
