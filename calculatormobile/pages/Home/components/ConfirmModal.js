@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
 function ConfirmModal({ homeInfo, cancelAddToCart, userInfo, addToCart, cartInfo }) {
-	const [value, setValue] = useState(0);
-	console.log(cartInfo);
+	const [value, setValue] = useState(1);
+
 	return (
 		<View style={styles.modalContainer}>
 			<View style={styles.foodNameAndDate}>
@@ -19,6 +19,7 @@ function ConfirmModal({ homeInfo, cancelAddToCart, userInfo, addToCart, cartInfo
 				value={value}
 				onValueChange={val => setValue(val)}
 				maximumValue={10}
+				minimumValue={1}
 				step={1}
 			/>
 			<Text>Amount: {value}</Text>
@@ -34,6 +35,7 @@ function ConfirmModal({ homeInfo, cancelAddToCart, userInfo, addToCart, cartInfo
 							date: homeInfo.selectedDate,
 							foodId: homeInfo.foodId,
 							userId: userInfo.userId,
+							calories: homeInfo.foodCalories,
 						});
 						cancelAddToCart();
 					}}
