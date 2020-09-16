@@ -23,7 +23,7 @@ export default function NutritionCard({ nutrition }) {
 			color='#4f9deb'
 			title={`${nutritionName} (${labels[nutritionName]})`}
 			titleStyle={{ fontSize: 20 }}
-			price={`Consumed: ${amount.toFixed(2)}`}
+			price={`${amount.toFixed(2)} ${labels[nutritionName]}`}
 			pricingStyle={{ fontSize: 25 }}
 			// info={[`Recommended: ${recommendedDaily[nutritionName]}`]}
 			button={{ style: { display: 'none' } }}

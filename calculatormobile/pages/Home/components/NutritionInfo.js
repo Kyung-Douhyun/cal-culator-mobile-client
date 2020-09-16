@@ -8,24 +8,24 @@ import { searchFoodQuery } from '../queries';
 
 import NutritionCard from './NutritionCard';
 
-function NutritionInfo({ homeInfo, foodImageHandler, foodIdHandler }) {
+function NutritionInfo({ homeInfo, foodImageHandler, foodIdHandler, foodCaloriesHandler }) {
 	const [currentFood, setCurrentFood] = useState({});
-
 	const nutritionMapper = () => {
 		return Object.entries(currentFood)
 			.filter(el => !['__typename', 'name', 'id', 'image'].includes(el[0]))
 			.map((el, idx) => <NutritionCard key={idx} nutrition={el} />);
 	};
 
-	const { loading, data } = useQuery(searchFoodQuery, {
+	useQuery(searchFoodQuery, {
 		variables: {
 			name: homeInfo.foodName,
 		},
 		onCompleted: data => {
-			setCurrentFood(data.foods);
 			if (data.foods.name !== '') {
+				setCurrentFood(data.foods);
 				foodImageHandler(data.foods.image);
 				foodIdHandler(data.foods.id);
+				foodCaloriesHandler(data.foods.calories);
 			}
 		},
 	});
@@ -64,6 +64,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		foodIdHandler: id => {
 			dispatch({ type: actionTypes.FOOD_ID_HANDLER, payload: id });
+		},
+		foodCaloriesHandler: calories => {
+			dispatch({ type: actionTypes.FOOD_CALORIES_HANDLER, payload: calories });
 		},
 	};
 };

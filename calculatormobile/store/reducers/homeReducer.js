@@ -7,6 +7,7 @@ const initialState = {
 	},
 	foodName: '',
 	foodId: '',
+	foodCalories: 0,
 	selectedDate: new Date().toISOString().slice(0, 10),
 	datePickerOpen: false,
 	confirmCartOpen: false,
@@ -41,6 +42,11 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				foodId: action.payload,
+			};
+		case actionTypes.FOOD_CALORIES_HANDLER:
+			return {
+				...state,
+				foodCalories: action.payload,
 			};
 		case actionTypes.OPEN_ADD_TO_CART:
 			return {
