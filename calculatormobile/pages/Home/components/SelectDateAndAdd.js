@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
@@ -39,7 +39,15 @@ function SelectDateAndAdd({ homeInfo, openHomeCalendar, selectDate, openAddToCar
 			<TouchableOpacity onPress={() => openHomeCalendar()}>
 				<Text>{homeInfo.selectedDate}</Text>
 			</TouchableOpacity>
-			<TouchableOpacity onPress={() => openAddToCartHandler()}>
+			<TouchableOpacity
+				onPress={() => {
+					if (homeInfo.foodName) {
+						openAddToCartHandler();
+					} else {
+						Alert.alert('먼저 검색해주세요!', '검색하신 항목이 없습니다', [{ text: '알겠습니다' }]);
+					}
+				}}
+			>
 				<Text>카트담기</Text>
 			</TouchableOpacity>
 		</View>
