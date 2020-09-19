@@ -1,10 +1,28 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
-
+import { useMutation } from '@apollo/client';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
+import { addFoodUsersQuery } from '../queries';
 
-function DeleteAndConfirm({ deleteCartHandler }) {
+function DeleteAndConfirm({ cartInfo, userInfo, deleteCartHandler }) {
+	const [addFoodUsers] = useMutation(addFoodUsersQuery);
+
+	const addToFoodUserHandler = () => {
+		const userId = userInfo.userId;
+		const sendingData = cartInfo
+			.filter(item => item.isChecked)
+			.map(item => {
+				return { date: item.date, amount: item.amount, user_id: userId, food_id: item.foodId };
+			});
+		addFoodUsers({
+			variables: {
+				list: sendingData,
+			},
+		});
+		deleteCartHandler();
+	};
+
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
@@ -15,14 +33,7 @@ function DeleteAndConfirm({ deleteCartHandler }) {
 			>
 				<Text>Delete</Text>
 			</TouchableOpacity>
-			<TouchableOpacity
-				style={styles.confirmBtn}
-				onPress={() =>
-					setCartItem(prevState => {
-						return prevState.filter(cartItem => !cartItem.selected);
-					})
-				}
-			>
+			<TouchableOpacity style={styles.confirmBtn} onPress={() => addToFoodUserHandler()}>
 				<Text>Confirm</Text>
 			</TouchableOpacity>
 		</View>
@@ -54,6 +65,13 @@ const styles = StyleSheet.create({
 	},
 });
 
+const mapStateToProps = state => {
+	return {
+		userInfo: state.userInfo,
+		cartInfo: state.cartInfo,
+	};
+};
+
 const mapDispatchToProps = dispatch => {
 	return {
 		deleteCartHandler: () => {
@@ -62,4 +80,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(null, mapDispatchToProps)(DeleteAndConfirm);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteAndConfirm);

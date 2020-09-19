@@ -27,6 +27,3 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
-
-// need
-// [{date, amount, user_id, food_id}]
