@@ -1,16 +1,17 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-export default function DeleteAndConfirm({ setCartItem }) {
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
+
+function DeleteAndConfirm({ deleteCartHandler }) {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity
 				style={styles.deleteBtn}
-				onPress={() =>
-					setCartItem(prevState => {
-						return prevState.filter(cartItem => !cartItem.selected);
-					})
-				}
+				onPress={() => {
+					deleteCartHandler();
+				}}
 			>
 				<Text>Delete</Text>
 			</TouchableOpacity>
@@ -31,20 +32,34 @@ export default function DeleteAndConfirm({ setCartItem }) {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1.8,
-		backgroundColor: 'lightgreen',
 		justifyContent: 'space-around',
+		alignItems: 'center',
 		flexDirection: 'row',
 	},
 	deleteBtn: {
-		width: '20%',
+		width: '30%',
+		height: 50,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'red',
+		backgroundColor: '#e94560',
+		borderRadius: 10,
 	},
 	confirmBtn: {
-		width: '20%',
+		width: '30%',
+		height: 50,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'darkgreen',
+		backgroundColor: '#28df99',
+		borderRadius: 10,
 	},
 });
+
+const mapDispatchToProps = dispatch => {
+	return {
+		deleteCartHandler: () => {
+			dispatch({ type: actionTypes.DEL_CART });
+		},
+	};
+};
+
+export default connect(null, mapDispatchToProps)(DeleteAndConfirm);

@@ -1,63 +1,64 @@
-import React, { useState } from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { ListItem, CheckBox } from 'react-native-elements';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
 
-export default function CartItem({ item, setCartItem }) {
-	const { date, foodName, servings, calories } = item;
-	const [selected, setSelected] = useState(false);
-
-	const pressHandler = () => {
-		setCartItem(prevState => {
-			const currentItem = prevState.find(cartItem => cartItem.id === item.id);
-			currentItem.selected = !currentItem.selected;
-			return [...prevState];
-		});
-		setSelected(prevState => !prevState);
-	};
+function CartItem({ item, idx, checkHandler }) {
+	const { date, foodName, amount, calories, isChecked } = item;
 
 	return (
-		<TouchableOpacity
-			onPress={pressHandler}
-			style={selected ? styles.selectedContainer : styles.unselectedContainer}
-		>
-			<Text style={styles.column}>{date}</Text>
-			<Text style={styles.column}>{foodName}</Text>
-			<Text style={styles.column}>{servings}</Text>
-			<Text style={styles.column}>{calories}</Text>
-		</TouchableOpacity>
+		<ListItem bottomDivider>
+			<CheckBox
+				center
+				checkedIcon='check-circle'
+				uncheckedIcon='times-circle'
+				containerStyle={styles.checkBox}
+				checkedColor='green'
+				uncheckedColor='red'
+				checked={isChecked}
+				onPress={() => checkHandler(idx)}
+			/>
+			<ListItem.Content style={styles.content}>
+				<ListItem.Title>{foodName}</ListItem.Title>
+				<View style={styles.subtitleView}>
+					<Text style={styles.text}>Date: {date}</Text>
+					<Text style={styles.text}>Servings: {amount}</Text>
+					<Text style={styles.text}>Calories: {calories * amount}</Text>
+				</View>
+			</ListItem.Content>
+		</ListItem>
 	);
 }
 
 const styles = StyleSheet.create({
-	unselectedContainer: {
+	subtitleView: {
 		flexDirection: 'row',
-		height: 60,
-		borderRadius: 6,
-		elevation: 3,
-		backgroundColor: 'pink',
-		shadowOffset: { width: 1, height: 1 },
-		shadowColor: '#333',
-		shadowOpacity: 0.3,
-		shadowRadius: 2,
-		marginHorizontal: 4,
-		marginVertical: 6,
+		paddingTop: 5,
 	},
-	selectedContainer: {
-		flexDirection: 'row',
-		height: 60,
-		borderRadius: 6,
-		elevation: 3,
-		backgroundColor: 'orange',
-		shadowOffset: { width: 1, height: 1 },
-		shadowColor: '#333',
-		shadowOpacity: 0.3,
-		shadowRadius: 2,
-		marginHorizontal: 4,
-		marginVertical: 6,
+	text: {
+		paddingLeft: 10,
+		color: 'grey',
 	},
-	column: {
-		flex: 1,
-		height: '100%',
-		borderColor: 'black',
-		borderWidth: 2,
+	checkBox: {
+		position: 'absolute',
+		left: -10,
+	},
+	content: {
+		paddingLeft: 10,
 	},
 });
+
+const mapStateToProps = state => {
+	return {};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		checkHandler: idx => {
+			dispatch({ type: actionTypes.CHECK_CART_ITEM_HANDLER, payload: idx });
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);
