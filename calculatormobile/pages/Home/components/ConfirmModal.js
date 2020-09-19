@@ -5,7 +5,7 @@ import { Slider } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
-function ConfirmModal({ homeInfo, cancelAddToCart, userInfo, addToCart, cartInfo }) {
+function ConfirmModal({ homeInfo, cancelAddToCart, userInfo, addToCart }) {
 	const [value, setValue] = useState(1);
 
 	return (
@@ -36,6 +36,8 @@ function ConfirmModal({ homeInfo, cancelAddToCart, userInfo, addToCart, cartInfo
 							foodId: homeInfo.foodId,
 							userId: userInfo.userId,
 							calories: homeInfo.foodCalories,
+							foodName: homeInfo.foodName,
+							isChecked: false,
 						});
 						cancelAddToCart();
 					}}

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { globalStyle } from '../styles/styles';
+import { connect } from 'react-redux';
 
 import ColumnLists from './components/ColumnLists';
 import CartItem from './components/CartItem';
 import DeleteAndConfirm from './components/DeleteAndConfirm';
 import TotalCalories from './components/TotalCalories';
 
-export default function Cart() {
+function Cart({ cartInfo }) {
+	console.log(cartInfo);
 	const [cartItem, setCartItem] = useState([
 		{ date: '2020-01-01', foodName: 'pasta', servings: 1, calories: 500.0, id: 1, selected: false },
 		{ date: '2020-01-01', foodName: 'pasta', servings: 2, calories: 500.0, id: 2, selected: false },
@@ -26,13 +28,13 @@ export default function Cart() {
 				<ColumnLists />
 				<View style={styles.cartItems}>
 					<ScrollView style={styles.scrollView}>
-						{cartItem.map(item => (
-							<CartItem item={item} key={item.id} setCartItem={setCartItem} />
+						{cartInfo.map((item, idx) => (
+							<CartItem item={item} key={idx} />
 						))}
 					</ScrollView>
 				</View>
 				<TotalCalories />
-				<DeleteAndConfirm setCartItem={setCartItem} />
+				<DeleteAndConfirm />
 			</View>
 		</View>
 	);
@@ -46,3 +48,11 @@ const styles = StyleSheet.create({
 		backgroundColor: 'red',
 	},
 });
+
+const mapStateToProps = state => {
+	return {
+		cartInfo: state.cartInfo,
+	};
+};
+
+export default connect(mapStateToProps)(Cart);
