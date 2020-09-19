@@ -4,7 +4,7 @@ import { ListItem, CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
-function CartItem({ item }) {
+function CartItem({ item, idx, checkHandler }) {
 	const { date, foodName, amount, calories, isChecked } = item;
 
 	return (
@@ -17,6 +17,7 @@ function CartItem({ item }) {
 				checkedColor='green'
 				uncheckedColor='red'
 				checked={isChecked}
+				onPress={() => checkHandler(idx)}
 			/>
 			<ListItem.Content style={styles.content}>
 				<ListItem.Title>{foodName}</ListItem.Title>
@@ -53,7 +54,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-	return {};
+	return {
+		checkHandler: idx => {
+			dispatch({ type: actionTypes.CHECK_CART_ITEM_HANDLER, payload: idx });
+		},
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);
