@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		display: 'flex',
 		alignItems: 'center',
-		backgroundColor: 'blue',
 		marginBottom: 10,
 	},
 	img: {
 		height: '100%',
 		width: '100%',
 		resizeMode: 'contain',
+		opacity: 0.9,
 	},
 });
 

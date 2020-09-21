@@ -36,8 +36,8 @@ function SelectDateAndAdd({ homeInfo, openHomeCalendar, selectDate, openAddToCar
 				<ConfirmModal />
 			</Modal>
 
-			<TouchableOpacity onPress={() => openHomeCalendar()}>
-				<Text>{homeInfo.selectedDate}</Text>
+			<TouchableOpacity style={styles.dateBtn} onPress={() => openHomeCalendar()}>
+				<Text style={{ color: '#eee', fontWeight: 'bold' }}>{homeInfo.selectedDate}</Text>
 			</TouchableOpacity>
 			<TouchableOpacity
 				onPress={() => {
@@ -47,8 +47,9 @@ function SelectDateAndAdd({ homeInfo, openHomeCalendar, selectDate, openAddToCar
 						Alert.alert('먼저 검색해주세요!', '검색하신 항목이 없습니다', [{ text: '알겠습니다' }]);
 					}
 				}}
+				style={styles.addToCartBtn}
 			>
-				<Text>카트담기</Text>
+				<Text style={{ color: '#eee', fontWeight: 'bold' }}>카트담기</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -58,15 +59,30 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
 		flex: 1,
-		justifyContent: 'space-around',
+		justifyContent: 'space-evenly',
 		display: 'flex',
 		alignItems: 'center',
-		backgroundColor: 'pink',
 	},
 	datePicker: {
 		justifyContent: 'center',
 		flex: 1,
 		width: '100%',
+	},
+	dateBtn: {
+		width: '35%',
+		backgroundColor: '#07689f',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 35,
+		borderRadius: 7,
+	},
+	addToCartBtn: {
+		width: '35%',
+		backgroundColor: '#07689f',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: 35,
+		borderRadius: 7,
 	},
 });
 

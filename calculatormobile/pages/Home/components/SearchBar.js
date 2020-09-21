@@ -34,17 +34,20 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	searchInput: {
-		backgroundColor: '#eee',
+		backgroundColor: '#ddd',
 		width: '70%',
 		height: '100%',
 		justifyContent: 'center',
+		borderRadius: 10,
+		paddingLeft: 15,
 	},
 	searchBtn: {
-		backgroundColor: 'lightgreen',
+		backgroundColor: '#28df99',
 		height: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
 		width: '20%',
+		borderRadius: 10,
 	},
 });
 
