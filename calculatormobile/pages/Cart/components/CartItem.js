@@ -8,7 +8,7 @@ function CartItem({ item, idx, checkHandler }) {
 	const { date, foodName, amount, calories, isChecked } = item;
 
 	return (
-		<ListItem bottomDivider>
+		<ListItem bottomDivider style={styles.card}>
 			<CheckBox
 				center
 				checkedIcon='check-circle'
@@ -20,11 +20,11 @@ function CartItem({ item, idx, checkHandler }) {
 				onPress={() => checkHandler(idx)}
 			/>
 			<ListItem.Content style={styles.content}>
-				<ListItem.Title>{foodName}</ListItem.Title>
+				<ListItem.Title style={styles.text}>{foodName}</ListItem.Title>
 				<View style={styles.subtitleView}>
-					<Text style={styles.text}>Date: {date}</Text>
-					<Text style={styles.text}>Servings: {amount}</Text>
-					<Text style={styles.text}>Calories: {calories * amount}</Text>
+					<Text style={styles.text}>날짜: {date}</Text>
+					<Text style={styles.text}>인분: {amount}</Text>
+					<Text style={styles.text}>칼로리: {calories * amount}</Text>
 				</View>
 			</ListItem.Content>
 		</ListItem>
@@ -32,17 +32,24 @@ function CartItem({ item, idx, checkHandler }) {
 }
 
 const styles = StyleSheet.create({
+	card: {
+		borderBottomColor: '#663',
+		borderBottomWidth: 1,
+	},
 	subtitleView: {
 		flexDirection: 'row',
 		paddingTop: 5,
 	},
+	textFirst: {
+		color: '#333',
+	},
 	text: {
 		paddingLeft: 10,
-		color: 'grey',
+		color: '#333',
 	},
 	checkBox: {
 		position: 'absolute',
-		left: -10,
+		left: -5,
 	},
 	content: {
 		paddingLeft: 10,

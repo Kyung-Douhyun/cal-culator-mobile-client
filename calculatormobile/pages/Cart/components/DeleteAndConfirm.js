@@ -31,10 +31,10 @@ function DeleteAndConfirm({ cartInfo, userInfo, deleteCartHandler }) {
 					deleteCartHandler();
 				}}
 			>
-				<Text>Delete</Text>
+				<Text style={{ fontWeight: 'bold', color: '#222' }}>Delete</Text>
 			</TouchableOpacity>
 			<TouchableOpacity style={styles.confirmBtn} onPress={() => addToFoodUserHandler()}>
-				<Text>Confirm</Text>
+				<Text style={{ fontWeight: 'bold', color: '#222' }}>Confirm</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -42,14 +42,15 @@ function DeleteAndConfirm({ cartInfo, userInfo, deleteCartHandler }) {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1.8,
-		justifyContent: 'space-around',
+		flex: 1.5,
+		justifyContent: 'space-evenly',
 		alignItems: 'center',
 		flexDirection: 'row',
+		backgroundColor: '#eee',
 	},
 	deleteBtn: {
 		width: '30%',
-		height: 50,
+		height: 35,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#e94560',
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
 	},
 	confirmBtn: {
 		width: '30%',
-		height: 50,
+		height: 35,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#28df99',
