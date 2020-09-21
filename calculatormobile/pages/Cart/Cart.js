@@ -3,7 +3,6 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import { globalStyle } from '../styles/styles';
 import { connect } from 'react-redux';
 
-import ColumnLists from './components/ColumnLists';
 import CartItem from './components/CartItem';
 import DeleteAndConfirm from './components/DeleteAndConfirm';
 import TotalCalories from './components/TotalCalories';
@@ -12,7 +11,6 @@ function Cart({ cartInfo }) {
 	return (
 		<View style={globalStyle.page}>
 			<View style={globalStyle.container}>
-				<ColumnLists />
 				<View style={styles.cartItems}>
 					<ScrollView style={styles.scrollView}>
 						{cartInfo.map((item, idx) => (
@@ -29,10 +27,10 @@ function Cart({ cartInfo }) {
 
 const styles = StyleSheet.create({
 	cartItems: {
-		flex: 11,
+		flex: 13,
 	},
 	scrollView: {
-		backgroundColor: 'red',
+		backgroundColor: '#eee',
 	},
 });
 

@@ -1,11 +1,16 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 
-export default function TotalCalories() {
+function TotalCalories({ cartInfo }) {
+	const totalCalories = cartInfo
+		.filter(item => item.isChecked)
+		.reduce((a, c) => a + c.amount * c.calories, 0)
+		.toFixed(2);
 	return (
 		<View style={styles.container}>
 			<View style={styles.card}>
-				<Text style={styles.cardContent}>Total calories: </Text>
+				<Text style={styles.cardContent}>총 칼로리: {totalCalories}kcal</Text>
 			</View>
 		</View>
 	);
@@ -13,26 +18,33 @@ export default function TotalCalories() {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1.2,
-		backgroundColor: 'yellow',
+		flex: 1,
+		backgroundColor: '#eee',
 		justifyContent: 'flex-end',
 		alignItems: 'center',
 		flexDirection: 'row',
 	},
 	card: {
-		borderRadius: 6,
-		elevation: 3,
-		backgroundColor: '#fff',
-		shadowOffset: { width: 1, height: 1 },
-		shadowColor: '#333',
-		shadowOpacity: 0.3,
-		shadowRadius: 2,
-		marginHorizontal: 10,
-		marginVertical: 6,
+		borderRadius: 8,
+		width: '50%',
+		marginRight: 25,
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingLeft: 5,
+		backgroundColor: '#07689f',
 	},
 	cardContent: {
-		paddingHorizontal: 18,
-		paddingVertical: 20,
-		backgroundColor: 'pink',
+		paddingHorizontal: 10,
+		paddingVertical: 10,
+		color: '#eee',
+		fontWeight: 'bold',
 	},
 });
+
+const mapStateToProps = state => {
+	return {
+		cartInfo: state.cartInfo,
+	};
+};
+
+export default connect(mapStateToProps)(TotalCalories);
