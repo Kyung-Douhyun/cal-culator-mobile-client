@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { PricingCard } from 'react-native-elements';
 
 const labels = {
@@ -20,13 +21,21 @@ export default function NutritionCard({ nutrition }) {
 	const [nutritionName, amount] = nutrition;
 	return (
 		<PricingCard
-			color='#4f9deb'
-			title={`${nutritionName} (${labels[nutritionName]})`}
+			color='#132743'
+			title={`${nutritionName}`}
 			titleStyle={{ fontSize: 20 }}
 			price={`${amount.toFixed(2)} ${labels[nutritionName]}`}
-			pricingStyle={{ fontSize: 25 }}
-			// info={[`Recommended: ${recommendedDaily[nutritionName]}`]}
+			pricingStyle={{ fontSize: 25, color: '#333', fontWeight: '600' }}
 			button={{ style: { display: 'none' } }}
+			containerStyle={styles.card}
 		/>
 	);
 }
+
+const styles = StyleSheet.create({
+	card: {
+		borderRadius: 10,
+		backgroundColor: '#a2de96',
+		marginBottom: 5,
+	},
+});

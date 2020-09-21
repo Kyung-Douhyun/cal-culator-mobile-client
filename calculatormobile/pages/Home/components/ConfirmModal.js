@@ -11,8 +11,8 @@ function ConfirmModal({ homeInfo, cancelAddToCart, userInfo, addToCart }) {
 	return (
 		<View style={styles.modalContainer}>
 			<View style={styles.foodNameAndDate}>
-				<Text style={styles.font}>Selected Food: {homeInfo.foodName}</Text>
-				<Text style={styles.font}>Selected Date: {homeInfo.selectedDate}</Text>
+				<Text style={styles.font}>{homeInfo.foodName}</Text>
+				<Text style={styles.font}>날짜: {homeInfo.selectedDate}</Text>
 			</View>
 			<Slider
 				style={styles.slider}
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#e94560',
 		width: '30%',
 		height: 50,
-		borderRadius: 5,
+		borderRadius: 10,
 		marginHorizontal: 20,
 	},
 	addToCartBtn: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#28df99',
 		width: '30%',
 		height: 50,
-		borderRadius: 5,
+		borderRadius: 10,
 		marginHorizontal: 20,
 	},
 });

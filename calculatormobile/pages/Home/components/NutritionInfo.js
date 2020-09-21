@@ -33,7 +33,11 @@ function NutritionInfo({ homeInfo, foodImageHandler, foodIdHandler, foodCalories
 	return (
 		<View style={styles.container}>
 			<ScrollView>
-				{!currentFood.name ? <Text>Search your food!</Text> : nutritionMapper()}
+				{!currentFood.name ? (
+					<Text style={styles.nullDisplay}>먹은 음식을 검색하세요!</Text>
+				) : (
+					nutritionMapper()
+				)}
 			</ScrollView>
 		</View>
 	);
@@ -46,8 +50,14 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		display: 'flex',
 		alignItems: 'center',
-		backgroundColor: 'orange',
 		marginBottom: 10,
+	},
+	nullDisplay: {
+		justifyContent: 'center',
+		alignContent: 'center',
+		textAlign: 'center',
+		fontSize: 25,
+		fontWeight: 'bold',
 	},
 });
 
