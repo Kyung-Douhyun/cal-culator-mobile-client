@@ -56,5 +56,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Summary);
-
-// {dwm.type === 'daily' ? <DailyChart dwm={dwm} /> : dwm.type === 'range' ? <RangeChart dwm={dwm} /> : <MonthlyChart dwm={dwm} />}
