@@ -6,10 +6,15 @@ import { useMutation } from '@apollo/client';
 import auth from '@react-native-firebase/auth';
 import LOGIN from '../../../graphQL/LOGIN';
 
-export default function FirebaseEmailLogin({
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
+
+function FirebaseEmailLogin({
+	refetch,
 	loginModal,
 	registerModalHandler,
 	loginModalHandler,
+	loginHandler,
 }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -44,6 +49,8 @@ export default function FirebaseEmailLogin({
 					}).then(logined => {
 						if (logined) {
 							console.log('LOGIN MUTATION SUCCESS');
+
+							loginHandler();
 						}
 					});
 				}
@@ -135,6 +142,16 @@ export default function FirebaseEmailLogin({
 		</Overlay>
 	);
 }
+
+const mapDispatchToProps = dispatch => {
+	return {
+		loginHandler: () => {
+			dispatch({ type: actionTypes.LOGIN });
+		},
+	};
+};
+
+export default connect(null, mapDispatchToProps)(FirebaseEmailLogin);
 
 const styles = StyleSheet.create({
 	container: {

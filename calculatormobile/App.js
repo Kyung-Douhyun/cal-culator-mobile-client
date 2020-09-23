@@ -14,9 +14,21 @@ import { Provider } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
+const defaultOptions = {
+	watchQuery: {
+		fetchPolicy: 'no-cache',
+		errorPolicy: 'ignore',
+	},
+	query: {
+		fetchPolicy: 'no-cache',
+		errorPolicy: 'all',
+	},
+};
+
 const client = new ApolloClient({
-	link: new HttpLink({ uri: 'http://localhost:4001/graphql', credentials: 'same-origin' }),
+	link: new HttpLink({ uri: 'http://localhost:4001/graphql', credentials: 'include' }),
 	cache: new InMemoryCache(),
+	defaultOptions,
 });
 
 export default function App() {

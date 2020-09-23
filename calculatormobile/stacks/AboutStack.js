@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import About from '../pages/About/About';
-import Login from '../pages/Login/Login';
-import HeaderRightIcon from './HeaderRightIcon';
 import HeaderLeftLogo from './HeaderLeftLogo';
+
+import { connect } from 'react-redux';
 
 const Stack = createStackNavigator();
 
-export default function AboutStack({ navigation }) {
+function AboutStack() {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
@@ -15,17 +15,21 @@ export default function AboutStack({ navigation }) {
 				component={About}
 				options={{
 					headerTitle: 'About',
-					headerRight: () => <HeaderRightIcon navigation={navigation} />,
 					headerLeft: () => <HeaderLeftLogo />,
-				}}
-			/>
-			<Stack.Screen
-				name='Login'
-				component={Login}
-				options={{
-					headerTitle: 'Setting',
 				}}
 			/>
 		</Stack.Navigator>
 	);
 }
+
+const mapStateToProps = state => {
+	return {
+		userInfo: state.userInfo,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AboutStack);

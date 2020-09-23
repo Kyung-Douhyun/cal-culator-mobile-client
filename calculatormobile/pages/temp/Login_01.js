@@ -5,17 +5,22 @@ import { Tooltip } from 'react-native-elements';
 import LoginTypes from './components/LoginTypes';
 import LOGINED_USER from '../../graphQL/LOGINED_USER';
 import GET_USERS from '../../graphQL/GET_USERS';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 export default function Login() {
 	const [curUser, setCurUser] = useState([]);
 	const [bmiState, setBmiState] = useState('');
 
-	const { loading, error, data } = useQuery(LOGINED_USER, {
-		onCompleted: logined => {
-			console.log('onCompleted :', logined);
+	const { loading, error, data } = useQuery(
+		LOGINED_USER,
+		{
+			onCompleted: logined => {
+				console.log('onCompleted :', logined);
+			},
 		},
-	});
+		{ fetchPolicy: 'network-only' },
+		{ notifyOnNetworkStatusChange: true },
+	);
 
 	const tempUser = [
 		{
@@ -48,10 +53,20 @@ export default function Login() {
 					<Text>upper</Text>
 				</View>
 				<View style={styles.user__01__name__}>
-					<Text>{name}</Text>
+					<View style={styles.user__01__name__01__}>
+						<Text style={styles.user__01__name__01__text}>이름</Text>
+					</View>
+					<View style={styles.user__01__name__02__}>
+						<Text style={styles.user__01__name__02__text}>{name}</Text>
+					</View>
 				</View>
 				<View style={styles.user__02__email__}>
-					<Text>{email}</Text>
+					<View style={styles.user__02__email__01__}>
+						<Text style={styles.user__02__email__01__text}>이메일</Text>
+					</View>
+					<View style={styles.user__02__email__02__}>
+						<Text style={styles.user__02__email__02__text}>{email}</Text>
+					</View>
 				</View>
 				<View style={styles.user__03__}>
 					<View style={styles.user__03__01__gender__}>
@@ -117,7 +132,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	user__: {
-		flex: 9,
+		flex: 8,
 		backgroundColor: 'lightgreen',
 	},
 	user__00__: {
@@ -125,35 +140,69 @@ const styles = StyleSheet.create({
 	},
 	user__01__name__: {
 		flex: 2,
-		borderWidth: 1,
+	},
+	user__01__name__01__: {
+		flex: 3,
+		justifyContent: 'center',
+		borderTopWidth: 1,
+		borderBottomWidth: 1,
+	},
+	user__01__name__01__text: {
+		textAlign: 'center',
+		fontSize: 18,
+	},
+	user__01__name__02__: {
+		flex: 7,
+		justifyContent: 'center',
+	},
+	user__01__name__02__text: {
+		textAlign: 'center',
+		fontSize: 24,
 	},
 	user__02__email__: {
 		flex: 2,
-		borderWidth: 1,
+	},
+	user__02__email__01__: {
+		flex: 3,
+		justifyContent: 'center',
+		borderTopWidth: 1,
+		borderBottomWidth: 1,
+	},
+	user__02__email__01__text: {
+		textAlign: 'center',
+		fontSize: 18,
+	},
+	user__02__email__02__: {
+		flex: 7,
+		justifyContent: 'center',
+	},
+	user__02__email__02__text: {
+		textAlign: 'center',
+		fontSize: 24,
 	},
 	user__03__: {
 		flex: 1,
 		flexDirection: 'row',
-		borderWidth: 1,
+		borderTopWidth: 1,
+		borderBottomWidth: 1,
 	},
 	user__03__01__gender__: {
 		flex: 5,
-		borderWidth: 1,
 	},
 	user__03__02__age__: {
 		flex: 5,
-		borderWidth: 1,
 	},
 	user__03__01__gender__01__: {
 		flex: 3,
 		justifyContent: 'center',
-		borderWidth: 1,
+		borderRightWidth: 1,
 	},
 	user__03__01__gender__01__text: {},
 	user__03__01__gender__02__: {
 		flex: 7,
 		justifyContent: 'center',
-		borderWidth: 1,
+		borderTopWidth: 1,
+		borderRightWidth: 1,
 	},
 	user__03__01__gender__02__text: {
 		fontSize: 24,
@@ -162,13 +211,12 @@ const styles = StyleSheet.create({
 	user__03__02__age__01__: {
 		flex: 3,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__03__02__age__01__text: {},
 	user__03__02__age__02__: {
 		flex: 7,
 		justifyContent: 'center',
-		borderWidth: 1,
+		borderTopWidth: 1,
 	},
 	user__03__02__age__02__text: {
 		fontSize: 24,
@@ -177,21 +225,17 @@ const styles = StyleSheet.create({
 	user__04__: {
 		flex: 2.5,
 		flexDirection: 'row',
-		borderWidth: 1,
 	},
 	user__04__01__: {
 		flex: 5,
-		borderWidth: 1,
 	},
 	user__04__01__01__height__: {
 		flex: 5,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__04__01__01__height__01__: {
 		flex: 3,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__04__01__01__height__01__text: {
 		fontSize: 18,
@@ -199,7 +243,6 @@ const styles = StyleSheet.create({
 	user__04__01__01__height__02__: {
 		flex: 7,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__04__01__01__height__02__text: {
 		fontSize: 36,
@@ -207,12 +250,10 @@ const styles = StyleSheet.create({
 	},
 	user__04__01__02__weight__: {
 		flex: 5,
-		borderWidth: 1,
 	},
 	user__04__01__01__weight__01__: {
 		flex: 3,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__04__01__01__weight__01__text: {
 		fontSize: 18,
@@ -220,7 +261,6 @@ const styles = StyleSheet.create({
 	user__04__01__01__weight__02__: {
 		flex: 7,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__04__01__01__weight__02__text: {
 		fontSize: 36,
@@ -228,12 +268,10 @@ const styles = StyleSheet.create({
 	},
 	user__04__02__bmi__: {
 		flex: 5,
-		borderWidth: 1,
 	},
 	user__04__02__bmi__01__title__: {
 		flex: 3,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__04__02__bmi__01__title__text: {
 		fontSize: 30,
@@ -243,7 +281,6 @@ const styles = StyleSheet.create({
 	user__04__02__bmi__02__value__: {
 		flex: 4,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__04__02__bmi__02__value__text: {
 		fontSize: 35,
@@ -252,7 +289,6 @@ const styles = StyleSheet.create({
 	user__04__02__bmi__03__state__: {
 		flex: 3,
 		justifyContent: 'center',
-		borderWidth: 1,
 	},
 	user__04__02__bmi__03__state__text: {
 		fontSize: 30,
@@ -260,6 +296,6 @@ const styles = StyleSheet.create({
 	},
 	login__logout: {
 		backgroundColor: 'pink',
-		flex: 1,
+		flex: 2,
 	},
 });
