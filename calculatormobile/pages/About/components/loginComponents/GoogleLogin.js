@@ -8,6 +8,7 @@ import { GoogleSignin, statusCodes } from '@react-native-community/google-signin
 import AddUserInfoModal from './AddUserInfoModal';
 import ADD_USER from '../../../graphQL/ADD_USER';
 import ADD_USER_INFO from '../../../graphQL/ADD_USER_INFO';
+import LOGIN from '../../../graphQL/LOGIN';
 import DELETE_USER from '../../../graphQL/DELETE_USER';
 
 GoogleSignin.configure({
@@ -23,10 +24,12 @@ export default function GoogleLogin() {
 		gender: '',
 		age: null,
 	});
-	const [addUser] = useMutation(ADD_USER, {
+	const [addUser, { loading, error }] = useMutation(ADD_USER, {
 		onCompleted({ addUser: { id, name, email } }) {
 			console.log({ id, name, email });
+			console.log(addUser);
 			setUser({ id, email, name });
+			console.log('user :', user);
 		},
 	});
 	const [addUserInfo] = useMutation(ADD_USER_INFO, {
@@ -41,9 +44,16 @@ export default function GoogleLogin() {
 		},
 	});
 
+	const [login] = useMutation(LOGIN, {
+		onCompleted({ login: { id, name, email } }) {
+			console.log({ id, name, email });
+		},
+	});
+
 	const completeGoogleLogin = async () => {
 		console.log(user);
 		await addUserInfoHandler(user);
+		modalHandler();
 	};
 
 	const firebaseGoogleLogin = async () => {
@@ -68,10 +78,10 @@ export default function GoogleLogin() {
 	};
 
 	const deleteUserHandler = async ({ email }) => {
+		modalHandler();
 		await deleteUser({
 			variables: { email },
 		});
-		modalHandler();
 	};
 
 	const modalHandler = () => {

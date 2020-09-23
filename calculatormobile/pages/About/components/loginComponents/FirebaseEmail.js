@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import FirebaseEmailLogin from './FirabaseEmailLogin';
 import FirebaseEmailRegister from './FirebaseEmailRegister';
 
-export default function FirebaseEmail() {
+export default function FirebaseEmail({ refetch }) {
 	const [loginModal, setLoginModal] = useState(false);
 	const [registerModal, setRegisterModal] = useState(false);
 
@@ -35,6 +35,7 @@ export default function FirebaseEmail() {
 						loginModal={loginModal}
 						registerModalHandler={registerModalHandler}
 						loginModalHandler={loginModalHandler}
+						refetch={refetch}
 					/>
 				</View>
 				<View>

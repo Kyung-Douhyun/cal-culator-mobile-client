@@ -6,6 +6,10 @@ const LOGINED_USER = gql`
 			id
 			name
 			email
+			gender
+			age
+			weight
+			height
 		}
 	}
 `;

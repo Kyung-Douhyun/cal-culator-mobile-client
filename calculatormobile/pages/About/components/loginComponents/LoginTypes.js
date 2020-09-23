@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
@@ -8,19 +8,35 @@ import GoogleLogin from './GoogleLogin';
 import FirebaseEmail from './FirebaseEmail';
 import CloseLoginModal from './CloseLoginModal';
 
-export default function Login() {
+import { useMutation } from '@apollo/client';
+import LOGOUT from '../../../graphQL/LOGOUT';
+
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
+
+function LoginTypes({ userInfo, isLoginHandler, userId, refetch }) {
+	const [logout] = useMutation(LOGOUT);
 	const [visible, setVisible] = useState(false);
-	const [logined, setLogined] = useState(false);
 	const toggleOverlay = () => {
 		setVisible(!visible);
 	};
 	const firebaseLogout = () => {
 		auth()
 			.signOut()
-			.then(() => console.log('User signed out!'));
+			.then(async () => {
+				await logout({
+					variables: { id: userId },
+				});
+				isLoginHandler();
+				toggleOverlay();
+				console.log('User signed out!');
+			});
 	};
 
-	if (!logined) {
+	useEffect(() => console.log('userInfo :', userInfo), []);
+	useEffect(() => console.log('userId :', userId), []);
+
+	if (!userInfo.isLogin) {
 		return (
 			<View style={styles.container}>
 				<TouchableOpacity onPress={toggleOverlay} style={styles.login__logout}>
@@ -30,7 +46,7 @@ export default function Login() {
 							<KakaotalkLogin />
 							<GoogleLogin />
 							<FacebookLogin />
-							<FirebaseEmail />
+							<FirebaseEmail refetch={refetch} />
 							<CloseLoginModal toggleOverlay={toggleOverlay} />
 						</Overlay>
 					</View>
@@ -46,29 +62,26 @@ export default function Login() {
 			</View>
 		);
 	}
-	// return (
-	// 	<View style={styles.container}>
-	// 		{!logined ? (
-	// 			<TouchableOpacity onPress={toggleOverlay} style={styles.login__logout}>
-	// 				<Text style={styles.login__logout__text}>로그인</Text>
-	// 				<View>
-	// 					<Overlay overlayStyle={styles.login__modal} isVisible={visible}>
-	// 						<KakaotalkLogin />
-	// 						<GoogleLogin />
-	// 						<FacebookLogin />
-	// 						<FirebaseEmail />
-	// 						<CloseLoginModal toggleOverlay={toggleOverlay} />
-	// 					</Overlay>
-	// 				</View>
-	// 			</TouchableOpacity>
-	// 		) : (
-	// 			<TouchableOpacity onPress={firebaseLogout} style={styles.login__logout}>
-	// 				<Text style={styles.login__logout__text}>로그아웃</Text>
-	// 			</TouchableOpacity>
-	// 		)}
-	// 	</View>
-	// );
 }
+
+const mapStateToProps = state => {
+	return {
+		userInfo: state.userInfo,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		isLoginHandler: () => {
+			dispatch({ type: actionTypes.LOGOUT });
+		},
+		// loginedUserHandler: curUser => {
+		// 	dispatch({ type: actionTypes.USER, payload: { curUser } });
+		// },
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginTypes);
 
 const styles = StyleSheet.create({
 	container: {
@@ -80,7 +93,7 @@ const styles = StyleSheet.create({
 		height: 60,
 		justifyContent: 'center',
 		width: 300,
-		backgroundColor: '#fefe',
+		backgroundColor: '#ffffff',
 		borderRadius: 12,
 		shadowColor: '#000',
 		shadowOffset: {

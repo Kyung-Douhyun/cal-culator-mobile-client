@@ -15,6 +15,18 @@ const reducer = (state = initialState, action) => {
 				...state,
 				isLogin: true,
 			};
+		case actionTypes.LOGOUT:
+			return {
+				...state,
+				isLogin: false,
+			};
+		case actionTypes.USER:
+			return {
+				...state,
+				userId: action.payload.userId,
+				userAge: action.payload.age,
+				userGender: action.payload.gender,
+			};
 		default:
 			return state;
 	}
