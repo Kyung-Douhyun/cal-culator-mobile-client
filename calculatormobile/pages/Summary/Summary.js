@@ -33,7 +33,7 @@ function Summary({ summaryInfo }) {
 	};
 
 	return (
-		<View style={globalStyle.page}>
+		<View style={{ backgroundColor: '#eee', flex: 1 }}>
 			<DatePickerModal />
 			<View style={globalStyle.container}>
 				<DWMButtons />
@@ -56,5 +56,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Summary);
-
-// {dwm.type === 'daily' ? <DailyChart dwm={dwm} /> : dwm.type === 'range' ? <RangeChart dwm={dwm} /> : <MonthlyChart dwm={dwm} />}
