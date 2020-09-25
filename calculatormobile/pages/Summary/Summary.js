@@ -33,7 +33,7 @@ function Summary({ summaryInfo }) {
 	};
 
 	return (
-		<View style={globalStyle.page}>
+		<View style={{ backgroundColor: '#eee', flex: 1 }}>
 			<DatePickerModal />
 			<View style={globalStyle.container}>
 				<DWMButtons />

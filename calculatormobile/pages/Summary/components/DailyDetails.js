@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		flex: 12,
 		justifyContent: 'center',
-		backgroundColor: '#ddd',
+		backgroundColor: '#eee',
 		display: 'flex',
 	},
 });

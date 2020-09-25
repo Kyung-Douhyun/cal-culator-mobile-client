@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-
 import * as actionTypes from '../../../store/actions';
 
 function ReportType({ displayOption }) {
@@ -22,7 +21,6 @@ function ReportType({ displayOption }) {
 					displayOption('detail');
 				}}
 			>
-
 				<Text>Detail Report</Text>
 			</TouchableOpacity>
 		</View>
@@ -35,15 +33,15 @@ const styles = StyleSheet.create({
 		flex: 2,
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		backgroundColor: 'pink',
+		backgroundColor: '#eee',
 	},
 	card: {
-		backgroundColor: 'green',
+		backgroundColor: '#07689f',
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: '30%',
+		height: 40,
 		width: '30%',
-		borderRadius: 5,
+		borderRadius: 10,
 	},
 });
 
