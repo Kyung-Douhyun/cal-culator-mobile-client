@@ -5,15 +5,23 @@ import { connect } from 'react-redux';
 import Recommend from './Recommend';
 import { yesterdayNutritionQuery } from '../queries';
 
+import dailyRecommendation from '../../Summary/helperFunctions/dailyRecommendation';
+import calculateDailyIntake from '../helperFunction/calculateDailyIntake';
+
 function RecommendContainer({ userInfo }) {
 	const [nutritions, setNutritions] = useState(['calcium', 'iron', 'protein']);
+	const date = new Date();
+	date.setDate(new Date().getDate() - 1);
 	const { loading, data } = useQuery(yesterdayNutritionQuery, {
 		variables: {
-			date: '2020-09-28',
+			date: date.toISOString().slice(0, 10),
 			user_id: userInfo.userId,
 		},
 		onCompleted: data => {
-			console.log(data);
+			calculateDailyIntake(
+				dailyRecommendation(userInfo.userAge, userInfo.userGender),
+				data.foodusersDate,
+			);
 		},
 	});
 	return (
