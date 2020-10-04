@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, ImageBackground, Image, View } from 'react-native';
+import redbg from '../../../asset/Image/redbg.jpeg';
+import greenbg from '../../../asset/Image/greenbg.jpeg';
 
-export default function Recommend({ nutritionName }) {
+export default function Recommend() {
 	return (
-		<TouchableOpacity style={styles.container}>
-			<Text>{nutritionName}</Text>
-		</TouchableOpacity>
+		<View style={styles.container}>
+			<Image source={redbg} style={{
+				height: 250,
+				width: 250,
+				borderRadius: 250 / 2
+			}}
+			/>
+			<Text style={styles.text}>Hello</Text>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
-		height: 40,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'yellow',
 		marginVertical: 10,
+		opacity: 0.85
 	},
+	text: {
+		zIndex: 1,
+		position: 'absolute',
+		fontSize: 25,
+		fontWeight: 'bold'
+	}
 });

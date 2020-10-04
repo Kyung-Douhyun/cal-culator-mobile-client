@@ -9,21 +9,23 @@ import dailyRecommendation from '../../Summary/helperFunctions/dailyRecommendati
 import calculateDailyIntake from '../helperFunction/calculateDailyIntake';
 
 function RecommendContainer({ userInfo }) {
-	const [nutritions, setNutritions] = useState(['calcium', 'iron', 'protein']);
+	const [nutritions, setNutritions] = useState([]);
 	const date = new Date();
 	date.setDate(new Date().getDate() - 1);
+
 	const { loading, data } = useQuery(yesterdayNutritionQuery, {
 		variables: {
 			date: date.toISOString().slice(0, 10),
 			user_id: userInfo.userId,
 		},
 		onCompleted: data => {
-			calculateDailyIntake(
+			const { dontEat, doEat } = calculateDailyIntake(
 				dailyRecommendation(userInfo.userAge, userInfo.userGender),
 				data.foodusersDate,
 			);
 		},
 	});
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.title}>
@@ -31,9 +33,9 @@ function RecommendContainer({ userInfo }) {
 			</View>
 			<View style={styles.recommend}>
 				<ScrollView style={styles.recommendScroll}>
-					{nutritions.map((item, idx) => {
-						return <Recommend nutritionName={item} key={idx} />;
-					})}
+					<Recommend />
+					<Recommend />
+					<Recommend />
 				</ScrollView>
 			</View>
 		</View>
