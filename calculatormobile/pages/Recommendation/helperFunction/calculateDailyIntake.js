@@ -42,17 +42,17 @@ function calculateDailyIntake(requiredDaily, data) {
 	});
 
 	nutritions.forEach(nutrition => {
-		dailyIntake[nutrition] = dailyIntake[nutrition] / requiredDaily[nutrition];
+		dailyIntake[nutrition] = (dailyIntake[nutrition] / requiredDaily[nutrition]).toFixed(2);
 	});
 
 	const sortedNutrition = Object.keys(dailyIntake)
 		.map(nutrition => [nutrition, dailyIntake[nutrition]])
 		.sort((a, b) => a[1] - b[1]);
 
-	const topThree = sortedNutrition.slice(-3);
-	const bottomThree = sortedNutrition.slice(0, 3);
+	const dontEat = sortedNutrition.slice(-3).filter(el => el[1] > 1);
+	const doEat = sortedNutrition.slice(0, 3);
 
-	return { topThree, bottomThree };
+	return { dontEat, doEat };
 }
 
 export default calculateDailyIntake;
