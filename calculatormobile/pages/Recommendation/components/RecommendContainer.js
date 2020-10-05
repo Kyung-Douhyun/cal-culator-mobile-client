@@ -8,12 +8,12 @@ import { yesterdayNutritionQuery } from '../queries';
 import dailyRecommendation from '../../Summary/helperFunctions/dailyRecommendation';
 import calculateDailyIntake from '../helperFunction/calculateDailyIntake';
 
-function RecommendContainer({ userInfo }) {
-	const [nutritions, setNutritions] = useState([]);
+function RecommendContainer({ userInfo, isDoEat }) {
+	const [nutritions, setNutritions] = useState({});
 	const date = new Date();
 	date.setDate(new Date().getDate() - 1);
 
-	const { loading, data } = useQuery(yesterdayNutritionQuery, {
+	useQuery(yesterdayNutritionQuery, {
 		variables: {
 			date: date.toISOString().slice(0, 10),
 			user_id: userInfo.userId,
@@ -23,6 +23,8 @@ function RecommendContainer({ userInfo }) {
 				dailyRecommendation(userInfo.userAge, userInfo.userGender),
 				data.foodusersDate,
 			);
+			console.log(dontEat, doEat);
+			setNutritions({ dontEat, doEat });
 		},
 	});
 
@@ -33,9 +35,10 @@ function RecommendContainer({ userInfo }) {
 			</View>
 			<View style={styles.recommend}>
 				<ScrollView style={styles.recommendScroll}>
-					<Recommend />
-					<Recommend />
-					<Recommend />
+					{!nutritions.doEat ? <Text>로딩중입니다</Text> :
+						isDoEat ? nutritions.doEat.map(nutrition => <Recommend key={nutrition[0]} isDoEat={isDoEat} nutrition={nutrition[0]} />) :
+							nutritions.dontEat.map(nutrition => <Recommend key={nutrition[0]} isDoEat={isDoEat} nutrition={nutrition[0]} />)
+					}
 				</ScrollView>
 			</View>
 		</View>

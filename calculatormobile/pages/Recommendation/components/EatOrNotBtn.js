@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export default function EatOrNotBtn() {
+export default function EatOrNotBtn({ setIsDoEat }) {
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity style={{ ...styles.btn, backgroundColor: 'lightgreen' }}>
-				<Text>What To Eat</Text>
+			<TouchableOpacity style={{ ...styles.btn, backgroundColor: 'lightgreen' }}
+				onPress={() => setIsDoEat(true)}
+			>
+				<Text style={styles.text}>섭취하세요</Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={{ ...styles.btn, backgroundColor: '#F30' }}>
-				<Text>Don't Eat</Text>
+			<TouchableOpacity style={{ ...styles.btn, backgroundColor: '#F30' }}
+				onPress={() => setIsDoEat(false)}
+			>
+				<Text style={styles.text}>그만드세요</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -28,4 +32,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderRadius: 6,
 	},
+	text: {
+		fontWeight: 'bold',
+	}
 });
