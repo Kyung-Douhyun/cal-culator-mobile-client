@@ -3,16 +3,16 @@ import { StyleSheet, Text, ImageBackground, Image, View } from 'react-native';
 import redbg from '../../../asset/Image/redbg.jpeg';
 import greenbg from '../../../asset/Image/greenbg.jpeg';
 
-export default function Recommend() {
+export default function Recommend({ isDoEat, nutrition }) {
 	return (
 		<View style={styles.container}>
-			<Image source={redbg} style={{
+			<Image source={isDoEat ? greenbg : redbg} style={{
 				height: 250,
 				width: 250,
 				borderRadius: 250 / 2
 			}}
 			/>
-			<Text style={styles.text}>Hello</Text>
+			<Text style={styles.text}>{nutrition}</Text>
 		</View>
 	);
 }
