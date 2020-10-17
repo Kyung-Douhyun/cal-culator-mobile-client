@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Animated, Easing } from 'react-native';
+import { View, Text, StyleSheet, Animated, Easing, Alert } from 'react-native';
 import { Input, Icon, Button, Overlay, CheckBox } from 'react-native-elements';
-import RNPickerSelect, { defaultStyles } from 'react-native-picker-select';
+import RNPickerSelect from 'react-native-picker-select';
 import LinearGradient from 'react-native-linear-gradient';
-import { useMutation } from '@apollo/client';
 import auth from '@react-native-firebase/auth';
-import ADD_USER from '../../../graphQL/ADD_USER';
+import axios from 'axios';
 
 export default function FirebaseEmail({ registerModal, registerModalHandler }) {
 	const [email, setEmail] = useState('');
@@ -15,12 +14,12 @@ export default function FirebaseEmail({ registerModal, registerModalHandler }) {
 	const [age, setAge] = useState();
 	const [maleChecked, setMaleChecked] = useState(false);
 	const [femaleChecked, setFemaleChecked] = useState(false);
-	const [addUser] = useMutation(ADD_USER, {
-		onCompleted({ addUser: { id, name, email } }) {
-			console.log({ id, name, email });
-		},
-	});
-	useEffect(() => console.log(age), [age]);
+	// const [addUser] = useMutation(ADD_USER, {
+	// 	onCompleted({ addUser: { id, name, email } }) {
+	// 		console.log({ id, name, email });
+	// 	},
+	// });
+	// useEffect(() => console.log(age), [age]);
 	const spinValue = useState(new Animated.Value(0))[0];
 	Animated.loop(
 		Animated.timing(spinValue, {
@@ -40,16 +39,11 @@ export default function FirebaseEmail({ registerModal, registerModalHandler }) {
 			.createUserWithEmailAndPassword(email, password)
 			.then(async created => {
 				if (created) {
-					console.log(created);
 					console.log('USER ACCOUNT CREATED & SIGNED IN!');
-					await addUser({
-						variables: { name, email, password, gender, age },
-					})
-						.then(aa => {
-							if (aa) {
-								console.log('ADD_USER MUTATION SUCCESS');
-								registerModalHandler();
-							}
+					axios
+						.post('http://localhost:4001/auth/adduser', { email, password, name, gender, age })
+						.then(() => {
+							registerModalHandler();
 						})
 						.catch(error => {
 							console.log('MONGODB ERROR');
@@ -57,16 +51,8 @@ export default function FirebaseEmail({ registerModal, registerModalHandler }) {
 						});
 				}
 			})
-			.catch(error => {
-				if (error.code === 'AUTH/EMAIL-ALREADY-IN-USE') {
-					console.log('THAT EMAIL ADDRESS IS ALREADY IN USE!');
-				}
-
-				if (error.code === 'AUTH/INVALID-EMAIL') {
-					console.log('THAT EMAIL ADDRESS IS INVALID!');
-				}
-
-				console.error(error);
+			.catch(() => {
+				Alert.alert('경고', '이미 존재하는 이메일입니다.', [{ text: 'OK' }], { cancelable: false });
 			});
 	};
 
@@ -187,9 +173,9 @@ export default function FirebaseEmail({ registerModal, registerModalHandler }) {
 						placeholder={{ label: '나이를 선택해 주세요.', value: null }}
 						onValueChange={value => setAge(value)}
 						items={[
-							{ label: 'Football', value: 12 },
-							{ label: 'Baseball', value: 13 },
-							{ label: 'Hockey', value: 14 },
+							{ label: '10~19', value: 10 },
+							{ label: '20~29', value: 20 },
+							{ label: '30~39', value: 30 },
 						]}
 						style={{
 							...pickerSelectStyles,
