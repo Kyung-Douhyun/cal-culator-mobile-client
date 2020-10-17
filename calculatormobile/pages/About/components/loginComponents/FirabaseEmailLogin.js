@@ -1,28 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Animated, Easing } from 'react-native';
+import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 import { Input, Icon, Button, Overlay } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import { useMutation } from '@apollo/client';
 import auth from '@react-native-firebase/auth';
-import LOGIN from '../../../graphQL/LOGIN';
-
+import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
 function FirebaseEmailLogin({
-	refetch,
 	loginModal,
 	registerModalHandler,
 	loginModalHandler,
 	loginHandler,
+	userInfoHandler,
 }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [login] = useMutation(LOGIN, {
-		onCompleted({ login: { id, name, email } }) {
-			console.log({ id, name, email });
-		},
-	});
 
 	const spinValue = useState(new Animated.Value(0))[0];
 	Animated.loop(
@@ -44,14 +37,10 @@ function FirebaseEmailLogin({
 			.then(async signedin => {
 				if (signedin) {
 					console.log('FIREBASE EMAIL LOGIN SUCCESS');
-					await login({
-						variables: { email, password },
-					}).then(logined => {
-						if (logined) {
-							console.log('LOGIN MUTATION SUCCESS');
-
-							loginHandler();
-						}
+					axios.post('http://localhost:4001/auth/login', { email, password }).then(res => {
+						console.log(res.data);
+						userInfoHandler(res.data._id);
+						loginHandler();
 					});
 				}
 			})
@@ -147,6 +136,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		loginHandler: () => {
 			dispatch({ type: actionTypes.LOGIN });
+		},
+		userInfoHandler: type => {
+			dispatch({ type: actionTypes.USER, payload: type });
 		},
 	};
 };

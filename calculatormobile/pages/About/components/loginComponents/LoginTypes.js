@@ -14,7 +14,7 @@ import LOGOUT from '../../../graphQL/LOGOUT';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
-function LoginTypes({ userInfo, isLoginHandler, userId, refetch }) {
+function LoginTypes({ userInfo, isLoginHandler, curUser, setCurUser }) {
 	const [logout] = useMutation(LOGOUT);
 	const [visible, setVisible] = useState(false);
 	const toggleOverlay = () => {
@@ -25,16 +25,26 @@ function LoginTypes({ userInfo, isLoginHandler, userId, refetch }) {
 			.signOut()
 			.then(async () => {
 				await logout({
-					variables: { id: userId },
+					variables: { id: userInfo.userId },
 				});
 				isLoginHandler();
 				toggleOverlay();
+				setCurUser({
+					...curUser,
+					id: '',
+					name: '',
+					email: '',
+					gender: '',
+					age: 0,
+					height: 0,
+					weight: 0,
+				});
 				console.log('User signed out!');
 			});
 	};
 
 	useEffect(() => console.log('userInfo :', userInfo), []);
-	useEffect(() => console.log('userId :', userId), []);
+	// useEffect(() => console.log('userId :', userId), []);
 
 	if (!userInfo.isLogin) {
 		return (
@@ -46,7 +56,7 @@ function LoginTypes({ userInfo, isLoginHandler, userId, refetch }) {
 							<KakaotalkLogin />
 							<GoogleLogin />
 							<FacebookLogin />
-							<FirebaseEmail refetch={refetch} />
+							<FirebaseEmail />
 							<CloseLoginModal toggleOverlay={toggleOverlay} />
 						</Overlay>
 					</View>
@@ -55,11 +65,11 @@ function LoginTypes({ userInfo, isLoginHandler, userId, refetch }) {
 		);
 	} else {
 		return (
-			<View style={styles.container}>
+			<TouchableOpacity style={styles.container}>
 				<TouchableOpacity onPress={firebaseLogout} style={styles.login__logout}>
 					<Text style={styles.login__logout__text}>로그아웃</Text>
 				</TouchableOpacity>
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }

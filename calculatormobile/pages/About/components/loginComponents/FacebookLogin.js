@@ -5,11 +5,13 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useMutation } from '@apollo/client';
 import AddUserInfoModal from './AddUserInfoModal';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
 import ADD_USER from '../../../graphQL/ADD_USER';
 import ADD_USER_INFO from '../../../graphQL/ADD_USER_INFO';
 import DELETE_USER from '../../../graphQL/DELETE_USER';
 
-export default function FacebookLogin() {
+function FacebookLogin({ loginHandler, userInfoHandler }) {
 	const [modal, setModal] = useState(false);
 	const [user, setUser] = useState({
 		id: '',
@@ -111,6 +113,19 @@ export default function FacebookLogin() {
 		</View>
 	);
 }
+
+const mapDispatchToProps = dispatch => {
+	return {
+		loginHandler: () => {
+			dispatch({ type: actionTypes.LOGIN });
+		},
+		userInfoHandler: type => {
+			dispatch({ type: actionTypes.USER, payload: type });
+		},
+	};
+};
+
+export default connect(null, mapDispatchToProps)(FacebookLogin);
 
 const styles = StyleSheet.create({
 	container: {

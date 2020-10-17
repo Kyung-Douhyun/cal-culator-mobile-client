@@ -10,12 +10,14 @@ import ADD_USER from '../../../graphQL/ADD_USER';
 import ADD_USER_INFO from '../../../graphQL/ADD_USER_INFO';
 import LOGIN from '../../../graphQL/LOGIN';
 import DELETE_USER from '../../../graphQL/DELETE_USER';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
 
 GoogleSignin.configure({
 	webClientId: '129551562719-pnfn8u9ibnd9rot5fmi6je1lgddv6b6u.apps.googleusercontent.com',
 });
 
-export default function GoogleLogin() {
+function GoogleLogin({ loginHandler, userInfoHandler }) {
 	const [modal, setModal] = useState(false);
 	const [user, setUser] = useState({
 		id: '',
@@ -112,6 +114,19 @@ export default function GoogleLogin() {
 		</View>
 	);
 }
+
+const mapDispatchToProps = dispatch => {
+	return {
+		loginHandler: () => {
+			dispatch({ type: actionTypes.LOGIN });
+		},
+		userInfoHandler: type => {
+			dispatch({ type: actionTypes.USER, payload: type });
+		},
+	};
+};
+
+export default connect(null, mapDispatchToProps)(GoogleLogin);
 
 const styles = StyleSheet.create({
 	container: {

@@ -1,15 +1,15 @@
 import { gql } from '@apollo/client';
 
 const LOGINED_USER = gql`
-	query {
-		loginedUser {
+	mutation loginedUser($id: String!) {
+		loginedUser(id: $id) {
 			id
 			name
 			email
-			gender
-			age
-			weight
-			height
+			# gender
+			# age
+			# weight
+			# height
 		}
 	}
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements';
 import AboutStack from './stacks/AboutStack';
 import HomeStack from './stacks/HomeStack';
 import SummaryStack from './stacks/SummaryStack';
@@ -36,7 +36,7 @@ export default function App() {
 		<ApolloProvider client={client}>
 			<Provider store={store}>
 				<NavigationContainer>
-					<Tab.Navigator initialRouteName='About'>
+					<Tab.Navigator initialRouteName='About' tabBarOptions={{ activeTintColor: '#87B672' }}>
 						<Tab.Screen name='Home' component={HomeStack} />
 						<Tab.Screen name='Summary' component={SummaryStack} />
 						<Tab.Screen name='Cart' component={CartStack} />
