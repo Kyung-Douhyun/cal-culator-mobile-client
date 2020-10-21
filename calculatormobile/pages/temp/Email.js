@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import FirebaseEmailLogin from './FirabaseEmailLogin';
-import FirebaseEmailRegister from './FirebaseEmailRegister';
+import EmailLogin from './EmailLogin';
+import EmailRegister from './EmailRegister';
 
-export default function FirebaseEmail({ refetch }) {
+export default function Email() {
 	const [loginModal, setLoginModal] = useState(false);
 	const [registerModal, setRegisterModal] = useState(false);
 
@@ -31,15 +31,14 @@ export default function FirebaseEmail({ refetch }) {
 			</TouchableOpacity>
 			<View>
 				<View>
-					<FirebaseEmailLogin
+					<EmailLogin
 						loginModal={loginModal}
 						registerModalHandler={registerModalHandler}
 						loginModalHandler={loginModalHandler}
-						refetch={refetch}
 					/>
 				</View>
 				<View>
-					<FirebaseEmailRegister
+					<EmailRegister
 						registerModal={registerModal}
 						registerModalHandler={registerModalHandler}
 					/>
