@@ -18,3 +18,4 @@ export const CONFIRM_ADD_TO_CART = 'CONFIRM_ADD_TO_CART';
 export const ADD_CART = 'ADD_CART';
 export const DEL_CART = 'DEL_CART';
 export const CHECK_CART_ITEM_HANDLER = 'CHECK_CART_ITEM_HANDLER';
+export const REGISTER = 'REGISTER';

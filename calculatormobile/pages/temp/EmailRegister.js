@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Modal } from 'react-native';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 import auth from '@react-native-firebase/auth';
-import ADD_USER from '../../../graphQL/ADD_USER';
+// import ADD_USER from '../../../graphQL/ADD_USER';
 
 export default function EmailRegister() {
 	const [registerModal, setRegisterModal] = useState(false);
@@ -11,46 +11,46 @@ export default function EmailRegister() {
 	const [name, setName] = useState('');
 	const [gender, setGender] = useState('');
 	const [age, setAge] = useState();
-	const [addUser] = useMutation(ADD_USER, {
-		onCompleted({ addUser: { id, name, email } }) {
-			console.log({ id, name, email });
-		},
-	});
+	// const [addUser] = useMutation(ADD_USER, {
+	// 	onCompleted({ addUser: { id, name, email } }) {
+	// 		console.log({ id, name, email });
+	// 	},
+	// });
 
-	const firebaseEmailRegister = () => {
-		auth()
-			.createUserWithEmailAndPassword(email, password)
-			.then(async created => {
-				if (created) {
-					console.log(created);
-					console.log('USER ACCOUNT CREATED & SIGNED IN!');
-					await addUser({
-						variables: { name, email, password, gender, age },
-					})
-						.then(aa => {
-							if (aa) {
-								console.log('ADD_USER MUTATION SUCCESS');
-								emailLoginHandler();
-							}
-						})
-						.catch(error => {
-							console.log('MONGODB ERROR');
-							console.error(error);
-						});
-				}
-			})
-			.catch(error => {
-				if (error.code === 'AUTH/EMAIL-ALREADY-IN-USE') {
-					console.log('THAT EMAIL ADDRESS IS ALREADY IN USE!');
-				}
+	// const EmailRegister = () => {
+	// 	auth()
+	// 		.createUserWithEmailAndPassword(email, password)
+	// 		.then(async created => {
+	// 			if (created) {
+	// 				console.log(created);
+	// 				console.log('USER ACCOUNT CREATED & SIGNED IN!');
+	// 				await addUser({
+	// 					variables: { name, email, password, gender, age },
+	// 				})
+	// 					.then(aa => {
+	// 						if (aa) {
+	// 							console.log('ADD_USER MUTATION SUCCESS');
+	// 							emailLoginHandler();
+	// 						}
+	// 					})
+	// 					.catch(error => {
+	// 						console.log('MONGODB ERROR');
+	// 						console.error(error);
+	// 					});
+	// 			}
+	// 		})
+	// 		.catch(error => {
+	// 			if (error.code === 'AUTH/EMAIL-ALREADY-IN-USE') {
+	// 				console.log('THAT EMAIL ADDRESS IS ALREADY IN USE!');
+	// 			}
 
-				if (error.code === 'AUTH/INVALID-EMAIL') {
-					console.log('THAT EMAIL ADDRESS IS INVALID!');
-				}
+	// 			if (error.code === 'AUTH/INVALID-EMAIL') {
+	// 				console.log('THAT EMAIL ADDRESS IS INVALID!');
+	// 			}
 
-				console.error(error);
-			});
-	};
+	// 			console.error(error);
+	// 		});
+	// };
 	const emailLoginHandler = () => {
 		setRegisterModal(prevState => !prevState);
 	};
@@ -84,7 +84,7 @@ export default function EmailRegister() {
 						style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
 						onChangeText={value => setAge(Number(value))}
 					/>
-					<Text type='submit' onPress={firebaseEmailRegister}>
+					<Text type='submit' onPress={EmailRegister}>
 						Login
 					</Text>
 					<Text onPress={emailLoginHandler}>Close</Text>

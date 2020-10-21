@@ -2,10 +2,9 @@
 import * as actionTypes from '../actions';
 
 const initialState = {
-	isLogin: false,
-	userId: '',
 	userEmail: '',
 	userName: '',
+	userPw: '',
 	userAge: '',
 	userGender: '',
 	userWeight: '',
@@ -14,29 +13,12 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case actionTypes.LOGIN:
+		case actionTypes.REGISTER:
 			return {
 				...state,
-				isLogin: true,
-			};
-		case actionTypes.LOGOUT:
-			return {
-				...state,
-				isLogin: false,
-				userId: '',
-				userEmail: '',
-				userName: '',
-				userAge: '',
-				userGender: '',
-				userWeight: '',
-				userHeight: '',
-			};
-		case actionTypes.USER:
-			return {
-				...state,
-				userId: action.payload.id,
 				userEmail: action.payload.email,
 				userName: action.payload.name,
+				userPw: action.payload.id,
 				userAge: action.payload.age,
 				userGender: action.payload.gender,
 				userWeight: action.payload.weight,
